@@ -1,9 +1,4 @@
-certifi
-cryptography
-decorator>=4.4.0
-APScheduler==3.6.3
-pytz>=2020.1
+decorator>=4.4.2
 jinja2>=2.11.2
 json5>=0.8.5
-toml>=0.10.2
-numpy>=1.19.4
+toml>=0.10.1

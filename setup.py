@@ -38,6 +38,7 @@ with codecs.open("README.rst", "r", "utf-8") as fd:
         keywords="python golden project pure skeleton",
         description="Golden project in pure python",
         long_description=fd.read(),
+        scripts=["scripts/cli_golden_python.py"],
         packages=packages,
         package_data={"golden": ["py.typed"]},
         install_requires=requirements,

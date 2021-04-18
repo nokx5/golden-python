@@ -5,9 +5,7 @@ with python3;
 let
   pythonEnv = withPackages (ps:
     with ps; [
-      regex
       decorator
-      APScheduler
       typed-ast
       jinja2
       pyjson5
@@ -34,6 +32,7 @@ let
 in mkShell {
   buildInputs = [ pythonEnv black gnumake ];
   shellHook = ''
+    export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
     export PYTHONPATH=$PWD:$PYTHONPATH
   '';
 }
