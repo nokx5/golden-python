@@ -9,44 +9,58 @@
   outputs = { self, nixpkgs, utils }:
     utils.lib.eachSystem [ "x86_64-linux" ] (system:
       let
+        overlay = pkgs-self: pkgs-super:
+          let
+            pythonPackageOverrides = python-self: python-super:
+              let inherit (python-super) buildPythonPackage lib pythonPackages;
+              in with python-self; {
+                # golden_python = buildPythonPackage rec {
+                #           pname = "golden_python";
+                #           version = "0.0";
+                #           src = self;
+                # 	    checkInputs = [ pytestCheckHook ];
+                #           pytestFlagsArray = [ "tests" "-vv" ];
+                #           propagatedBuildInputs = [ decorator jinja2 pyjson5 toml ];
+                # };
+
+                cli_golden_python = pythonPackages.buildPythonApplication rec {
+                  pname = "cli_golden_python";
+                  version = "0.0";
+                  src = self;
+                  checkInputs = [ pytestCheckHook pyjson5 toml ];
+                  pytestFlagsArray = [ "tests" "-vv" ];
+                  propagatedBuildInputs = [ decorator jinja2 ];
+                  # outputs = [ "bin" "dev" "doc" "out" ];
+                  # preInstall = ''
+                  #   mkdir -p $outputDoc
+                  #   mkdir -p $outputDoc/share/doc/dflkfld
+                  #   touch $outputDoc/share/doc/dflkfld/helloworld
+                  # '';
+                };
+              };
+
+          in (with pkgs-self; {
+
+            python37 = pkgs-super.python37.override (old: {
+              packageOverrides = pkgs-super.stdenv.lib.composeExtensions
+                (old.packageOverrides or (_: _: { })) pythonPackageOverrides;
+            });
+            python38 = pkgs-super.python38.override (old: {
+              packageOverrides = pkgs-super.stdenv.lib.composeExtensions
+                (old.packageOverrides or (_: _: { })) pythonPackageOverrides;
+            });
+            python39 = pkgs-super.python39.override (old: {
+              packageOverrides = pkgs-super.stdenv.lib.composeExtensions
+                (old.packageOverrides or (_: _: { })) pythonPackageOverrides;
+            });
+            python3 = python38;
+          });
+
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
+          overlays = [ overlay ];
         };
-
-        pythonPackageOverrides = python-self: python-super:
-          let inherit (python-super) buildPythonPackage lib pythonPackages;
-          in {
-            # golden_python = buildPythonPackage rec {
-            #           pname = "golden_python";
-            #           version = "0.0";
-            #           src = self;
-            # 	    checkInputs = [ pytestCheckHook ];
-            #           pytestFlagsArray = [ "tests" "-vv" ];
-            #           propagatedBuildInputs = [ decorator jinja2 pyjson5 toml ];
-            # };
-
-            cli_golden_python = pythonPackages.buildPythonApplication rec {
-              pname = "golden_python";
-              version = "0.0";
-              src = self;
-              checkInputs = [ pytestCheckHook pyjson5 toml ];
-              pytestFlagsArray = [ "tests" "-vv" ];
-              propagatedBuildInputs = [ decorator jinja2 ];
-              # outputs = [ "bin" "dev" "doc" "out" ];
-              # preInstall = ''
-              #   mkdir -p $outputDoc
-              #   mkdir -p $outputDoc/share/doc/dflkfld
-              #   touch $outputDoc/share/doc/dflkfld/helloworld
-              # '';
-            };
-          };
-
-        # python37 = pkgs.python37.override (old: {
-        # packageOverrides =
-        # pkgs.stdenv.lib.composeExtensions (old.packageOverrides or (_: _: { }))
-        #  pythonPackageOverrides;
-        # });
 
         # dev = (with pkgs;
         #   golden_python.overrideAttrs (oldAttrs: rec {
@@ -95,6 +109,8 @@
         #       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
         #     '';
         #   }));
+        #	golden_python = pkgs.python3Packages.golden_python;
+        cli_golden_python = pkgs.python3Packages.cli_golden_python;
 
       in {
         packages = { inherit cli_golden_python; };
