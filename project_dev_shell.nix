@@ -46,13 +46,14 @@ let
       nbconvert
       nbsphinx
     ]);
-in pkgs.mkShell {
-  buildInputs = (with pkgs; [ pythonEnv ]);
-  nativeBuildInputs = (with pkgs;
-    [ emacs-nox cacert git gnumake nixfmt pandoc typora vscodeExt ]
-    ++ [ black jupyter pythonEnv sphinx yapf ]);
-  shellHook = ''
-    export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
-    export PYTHONPATH=$PWD:$PYTHONPATH
-  '';
-}
+in (with pkgs;
+  mkShell {
+    buildInputs = [ pythonEnv ];
+    nativeBuildInputs =
+      [ cacert emacs-nox git gnumake nixfmt pandoc typora vscodeExt ]
+      ++ [ black jupyter pythonEnv sphinx yapf ];
+    shellHook = ''
+      export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+      export PYTHONPATH=$PWD:$PYTHONPATH
+    '';
+  })

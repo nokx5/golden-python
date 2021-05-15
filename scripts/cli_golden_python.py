@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -I nixpkgs=https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -i python -p python3Packages.golden_python
+#! nix-shell -i python -p python3Packages.black
 
 import argparse
 
