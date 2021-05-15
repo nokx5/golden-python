@@ -11,75 +11,29 @@
       let
         overlay = pkgs-self: pkgs-super:
           let
-            pythonPackageOverrides = python-self: python-super:
-              let inherit (python-super) buildPythonPackage lib pythonPackages;
-              in with python-self; {
-
-                golden_python = buildPythonPackage rec {
-                  pname = "golden_python";
-                  version = "0.0";
-                  src = self;
-                  checkInputs = [ pytestCheckHook ];
-                  pytestFlagsArray = [ "tests" "-vv" ];
-                  propagatedBuildInputs = [ decorator jinja2 pyjson5 toml ];
-                };
-
-                cli_golden_python = pythonPackages.buildPythonApplication rec {
-                  pname = "cli_golden_python";
-                  version = "0.0";
-                  src = self;
-                  checkInputs = [ pytestCheckHook pyjson5 toml ];
-                  pytestFlagsArray = [ "tests" "-vv" ];
-                  propagatedBuildInputs = [ decorator jinja2 ];
-                  # outputs = [ "bin" "dev" "doc" "out" ];
-                  # preInstall = ''
-                  #   mkdir -p $outputDoc
-                  #   mkdir -p $outputDoc/share/doc/dflkfld
-                  #   touch $outputDoc/share/doc/dflkfld/helloworld
-                  # '';
-                };
-
-                dev = (with pkgs-self;
-                  (with python-self;
-                    golden_python.overrideAttrs (oldAttrs: rec {
-                      nativeBuildInputs = let
-                        vscodeExt = vscode-with-extensions.override {
-                          vscodeExtensions = with vscode-extensions;
-                            [
-                              bbenoist.Nix
-                              ms-python.python
-                              ms-python.vscode-pylance
-                            ] ++ vscode-utils.extensionsFromVscodeMarketplace [{
-                              name = "emacs-mcx";
-                              publisher = "tuttieee";
-                              version = "0.31.0";
-                              sha256 =
-                                "McSWrOSYM3sMtZt48iStiUvfAXURGk16CHKfBHKj5Zk=";
-                            }];
-                        };
-                      in [ cacert hugo emacs-nox nixfmt typora vscodeExt ]
-                      ++ oldAttrs.nativeBuildInputs;
-                      shellHook = ''
-                        export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
-                        export PYTHONPATH=$PWD:$PYTHONPATH
-                      '';
-                    })));
-
-              };
-
+            inherit (pkgs-super.lib) composeExtensions;
+            pythonPackageOverrides = python-self: python-super: {
+              project_app =
+                python-self.callPackage ./project_app.nix { src = self; };
+              project_pkg =
+                python-self.callPackage ./project_pkg.nix { src = self; };
+              project_dev = python-self.callPackage ./project_dev_shell.nix { };
+            };
           in {
-
             python37 = pkgs-super.python37.override (old: {
-              packageOverrides = pkgs-super.lib.composeExtensions
-                (old.packageOverrides or (_: _: { })) pythonPackageOverrides;
+              packageOverrides =
+                composeExtensions (old.packageOverrides or (_: _: { }))
+                pythonPackageOverrides;
             });
             python38 = pkgs-super.python38.override (old: {
-              packageOverrides = pkgs-super.lib.composeExtensions
-                (old.packageOverrides or (_: _: { })) pythonPackageOverrides;
+              packageOverrides =
+                composeExtensions (old.packageOverrides or (_: _: { }))
+                pythonPackageOverrides;
             });
             python39 = pkgs-super.python39.override (old: {
-              packageOverrides = pkgs-super.lib.composeExtensions
-                (old.packageOverrides or (_: _: { })) pythonPackageOverrides;
+              packageOverrides =
+                composeExtensions (old.packageOverrides or (_: _: { }))
+                pythonPackageOverrides;
             });
             python3 = pkgs-self.python38;
           };
@@ -89,13 +43,12 @@
           config = { allowUnfree = true; };
           overlays = [ overlay ];
         };
-
       in {
         packages = {
-          cli_golden_python = pkgs.python3Packages.cli_golden_python;
-          golden_python = pkgs.python3Packages.golden_python;
+          golden_python_app = pkgs.python3Packages.project_app;
+          golden_python_pkg = pkgs.python3Packages.project_pkg;
         };
-        defaultPackage = self.packages.${system}.cli_golden_python;
-        devShell = pkgs.python3Packages.dev;
+        defaultPackage = self.packages.${system}.golden_python_app;
+        devShell = pkgs.python3Packages.project_dev;
       });
 }
