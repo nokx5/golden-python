@@ -25,9 +25,10 @@ importsrc:
 	cp -rp $(CURRENTDIR)/content $(SOURCEDIR)
 	cp -p $(CURRENTDIR)/../README.rst $(SOURCEDIR)
 	# import notebook examples
-	mkdir -p source/examples
-	# jupyter nbconvert --to rst ../examples/python_antipatterns.ipynb  --output-dir=source/examples
-
+	mkdir -p $(SOURCEDIR)/examples
+	for notebooks in $(CURRENTDIR)/../examples/*.ipynb; do \
+	    jupyter nbconvert $$notebooks --to rst  --output-dir=$(SOURCEDIR)/examples ; \
+	done
 clean:
 	rm -r $(TARGETDIR)
 	rm -r $(SOURCEDIR)
