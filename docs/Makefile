@@ -2,18 +2,32 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = build
+SPHINXOPTS  :=
+SPHINXBUILD := sphinx-build
+BUILDPREFIX := build
+SOURCEDIR   := $(BUILDPREFIX)-source
+TARGETDIR   := $(BUILDPREFIX)-target
+CURRENTDIR  := $(shell pwd)
 
 # Put it first so that "make" without argument is like "make help".
 help:
-	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(TARGETDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: help Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+%: importsrc Makefile
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(TARGETDIR)" $(SPHINXOPTS) $(O)
+
+# import all documentation easily
+importsrc:
+	cp -rp $(CURRENTDIR)/content $(SOURCEDIR)
+	cp -p $(CURRENTDIR)/../README.rst $(SOURCEDIR)
+	# import notebook examples
+	mkdir -p source/examples
+	# jupyter nbconvert --to rst ../examples/python_antipatterns.ipynb  --output-dir=source/examples
+
+clean:
+	rm -r $(TARGETDIR)
+	rm -r $(SOURCEDIR)

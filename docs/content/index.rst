@@ -5,7 +5,7 @@
 
 .. this is the Welcome page
 
-.. include:: ../../README.rst
+.. include:: README.rst
 
 .. this is the content of golden project
 
@@ -15,7 +15,7 @@
 
    autodocAPI.rst
    examples.rst
-
+   intro.rst
 
    
 =================

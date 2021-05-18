@@ -174,3 +174,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+## CUSTOM ######################################################################
+tests/sandbox.py
+docs/build*
