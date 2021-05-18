@@ -51,7 +51,7 @@ in (with pkgs;
     buildInputs = [ pythonEnv ];
     nativeBuildInputs =
       [ cacert emacs-nox git gnumake nixfmt pandoc typora vscodeExt ]
-      ++ [ black jupyter pythonEnv sphinx yapf ];
+      ++ [ black pythonEnv sphinx yapf ]; # jupyter
     shellHook = ''
       export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
       export PYTHONPATH=$PWD:$PYTHONPATH
