@@ -29,7 +29,7 @@ importsrc:
 	for notebooks in $(CURRENTDIR)/../examples/*.ipynb; do \
 	    jupyter nbconvert $$notebooks --to rst  --output-dir=$(SOURCEDIR)/examples ; \
 	done
-	cp -p $(CURRENTDIR)/../examples/index.rst $(SOURCEDIR)/examples.rst
+	cp -p $(CURRENTDIR)/../examples/index.rst $(SOURCEDIR)/examples/index.rst
 
 clean:
 	rm -rf $(TARGETDIR)

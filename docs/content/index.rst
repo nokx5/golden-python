@@ -5,35 +5,14 @@
 
 .. this is the Welcome page
 
+==========================================
+Welcome to the golden python documentation
+==========================================
+
+Write enjoyable documentation! 
+
+.. this is the README page
+
 .. include:: README.rst
 
-.. this is the content of golden project
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   autodocAPI.rst
-   examples.rst
-
-   
-=================
-Table of contents
-=================
-
-- `Welcome`_
-
-- `Installing`_
-
-- `Documentation`_
-  
-- `License`_
-
-
-==================
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. include:: toc-index.rst

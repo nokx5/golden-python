@@ -5,9 +5,9 @@ Documentation
    :maxdepth: 2
    :caption: Documentation:
    
-   examples/style_guide.rst
-   examples/documentation_using_sphinx.rst
-   examples/effective_python.rst
-   examples/python_antipatterns.rst
-   examples/typing_pysheet.rst
-   examples/red_flags.rst
+   style_guide.rst
+   documentation_using_sphinx.rst
+   effective_python.rst
+   python_antipatterns.rst
+   typing_pysheet.rst
+   red_flags.rst
