@@ -5,9 +5,9 @@ Documentation
    :maxdepth: 2
    :caption: Documentation:
    
-   examples/style_guide.ipynb
-   examples/documentation_using_sphinx.ipynb
-   examples/effective_python.ipynb
-   examples/python_antipatterns.ipynb
-   examples/typing_pysheet.ipynb
-   examples/red_flags.ipynb
+   examples/style_guide.rst
+   examples/documentation_using_sphinx.rst
+   examples/effective_python.rst
+   examples/python_antipatterns.rst
+   examples/typing_pysheet.rst
+   examples/red_flags.rst

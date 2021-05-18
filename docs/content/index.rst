@@ -15,7 +15,6 @@
 
    autodocAPI.rst
    examples.rst
-   intro.rst
 
    
 =================
