@@ -1,5 +1,5 @@
-Project API
-===========
+Reference
+=========
 
 .. automodule:: golden
    :members: Hello, Bye

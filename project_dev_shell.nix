@@ -14,7 +14,20 @@ let
           publisher = "tuttieee";
           version = "0.31.0";
           sha256 = "McSWrOSYM3sMtZt48iStiUvfAXURGk16CHKfBHKj5Zk=";
-        }];
+        }
+        {
+          name = "restructuredtext";
+          publisher = "lextudio";
+          version = "135.0.0";
+          sha256 = "yjPS9fZ628bfU34DsiUmZkOleRzW6EWY8DUjIU4wp9w=";
+        }
+        {
+          name = "snooty";
+          publisher = "snooty";
+          version = "0.9.2";
+          sha256 = "E6GBMdn6uNH8mQq6RwDJcm9JGrnDPrbu6hPQhR333rE=";
+        }
+        ];
     });
   pythonEnv = (with pythonPackages; # note that checkInputs are missing!
     (with project_app; propagatedBuildInputs ++ propagatedNativeBuildInputs)
@@ -40,18 +53,18 @@ let
       #---------------#
       # documentation #
       #---------------#      
+      jupyter-sphinx
       sphinx
       sphinx_rtd_theme
       nbformat
       nbconvert
-      nbsphinx
     ]);
 in (with pkgs;
   mkShell {
     buildInputs = [ pythonEnv ];
     nativeBuildInputs =
-      [ cacert emacs-nox git gnumake nixfmt pandoc typora vscodeExt ]
-      ++ [ black jupyter pythonEnv sphinx yapf ];
+      [ cacert emacs-nox git gnumake nixfmt pandoc vscodeExt ]
+      ++ [ black pythonEnv sphinx yapf ]; # jupyter
     shellHook = ''
       export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
       export PYTHONPATH=$PWD:$PYTHONPATH
