@@ -1,0 +1,674 @@
+`Python patterns to avoid <https://docs.quantifiedcode.com/python-anti-patterns>`__
+===================================================================================
+
+Correctness
+-----------
+
+
+
+Avoid assigning a lambda expression to a variable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    f = lambda x: 2 * x
+
+**Best practice**
+
+.. code:: ipython3
+
+    def f(x): return 2 * x
+
+
+
+Avoid using \__future_\_ import (in the middle of the code)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    print(8 / 7)  # 1
+    
+    # SyntaxError
+    from __future__ import division
+    
+    # 1.1428571428571428
+    print(8 / 7)
+
+
+.. parsed-literal::
+
+    1.1428571428571428
+    1.1428571428571428
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    # Scenario 1: if possible, remove __future__ import statement
+    print(8 / 7)  # 1
+
+
+.. parsed-literal::
+
+    1.1428571428571428
+
+
+.. code:: ipython3
+
+    # Scenario 2: if required, always place __future__ import at the beginning of the module
+    from __future__ import division
+    
+    # 1.1428571428571428
+    print(8 / 7)
+
+
+.. parsed-literal::
+
+    1.1428571428571428
+
+
+
+
+Don’t implement Java-style getters and setters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In most programming languages, methods are used to access attributes.
+
+**Avoid**
+
+.. code:: ipython3
+
+    class Square(object):
+        def __init__(self, length):
+            self._length = length
+        # Java-style
+        def get_length(self):
+            return self._length
+        # Java-style
+        def set_length(self, length):
+            self._length = length
+    
+    r = Square(5)
+    r.get_length()
+    r.set_length(6)
+
+**Best practice**
+
+.. code:: ipython3
+
+    # Access the members directly
+    class Square(object):
+        def __init__(self, length):
+            self.length = length
+    
+    r = Square(5)
+    r.length
+    r.length = 6
+    
+    # Use built-in property decorator
+    class newSquare(object):
+        def __init__(self, length):
+            self._length = length
+    
+        @property # getter
+        def length(self):
+            return self._length
+    
+        @length.setter
+        def length(self, value):
+            self._length = value
+    
+        @length.deleter
+        def length(self):
+            del self._length
+    
+    r = newSquare(5)
+    r.length  # automatically calls getter
+    r.length = 6  # automatically calls setter
+
+
+
+Create generic function in the class instead of a method
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The method of the class can be more generic (associate to the object and
+to the class scope). If possible, make those functionalities more
+generic.
+
+**Avoid**
+
+.. code:: ipython3
+
+    
+    class Rectangle:
+        def __init__(self, width, height):
+            self.width = width
+            self.height = height
+            self.area = width * height
+    
+        def print_class_name():
+            print("class name: Rectangle")
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    
+    class Rectangle:
+        # clarifies that this is a static method and belongs here
+        @staticmethod
+        def area(width, height):
+            return width * height
+    
+        @classmethod
+        def print_class_name(cls):
+            # "class name: Rectangle"
+            print("class name: {0}".format(cls))
+
+
+
+
+Never use a mutable default argument !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The arguments of a function share the same default object.
+
+For this reason, default mutable arguments should be avoided.
+
+**Avoid**
+
+.. code:: ipython3
+
+    def append(number, number_list=[]):
+        number_list.append(number)
+        print(number_list)
+        return number_list
+    
+    append(5) # expecting: [5], actual: [5]
+    append(7) # expecting: [7], actual: [5, 7]
+    append(2) # expecting: [2], actual: [5, 7, 2]
+
+
+.. parsed-literal::
+
+    [5]
+    [5, 7]
+    [5, 7, 2]
+
+
+
+
+.. parsed-literal::
+
+    [5, 7, 2]
+
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    def append(number, number_list=None):
+        if number_list is None:
+            number_list = []
+        number_list.append(number)
+        print(number_list)
+        return number_list
+    
+    append(5) # expecting: [5], actual: [5]
+    append(7) # expecting: [7], actual: [7]
+    append(2) # expecting: [2], actual: [2]
+
+
+.. parsed-literal::
+
+    [5]
+    [7]
+    [2]
+
+
+
+
+.. parsed-literal::
+
+    [2]
+
+
+
+
+
+Use get() to return a value from a dict
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Repetition is the key.
+
+**Avoid**
+
+.. code:: ipython3
+
+    dictionary = {"message": "Hello, World!"}
+    
+    data = ""
+    
+    if "message" in dictionary:
+        data = dictionary["message"]
+    
+    print(data)  # Hello, World!
+
+
+.. parsed-literal::
+
+    Hello, World!
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    dictionary = {"message": "Hello, World!"}
+    
+    data = dictionary.get("message", "")
+    
+    print(data)  # Hello, World!
+
+
+.. parsed-literal::
+
+    Hello, World!
+
+
+
+
+Use setdefault() to initialize a dictionary (for the same reason)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    dictionary = {}
+    
+    if "list" not in dictionary:
+        dictionary["list"] = []
+    
+    dictionary["list"].append("list_item")
+
+**Best practice**
+
+.. code:: ipython3
+
+    dictionary = {}
+    
+    dictionary.setdefault("list", []).append("list_item")
+
+
+
+Be aware of defaultdict and \__missing_\_ method
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In some circonstances, using defaultdict or implementing a missing
+method for a dict could be a better practice.
+
+
+
+Maintainability
+---------------
+
+Use with to open files
+~~~~~~~~~~~~~~~~~~~~~~
+
+Consider contextlib and with statement for a clean try/finally block
+execution.
+
+**Avoid**
+
+.. code:: ipython3
+
+    f = open("file.txt", "r")
+    content = f.read()
+    1 / 0  # ZeroDivisionError
+    # never executes, possible memory issues or file corruption
+    f.close()
+
+**Best practice**
+
+.. code:: ipython3
+
+    with open("file.txt", "r") as f:
+        content = f.read()
+        # Python still executes f.close() even though an exception occurs
+        1 / 0
+
+
+
+Using single letter to name your variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    
+    d = {'data': [{'a': 'b'}, {'b': 'c'}, {'c': 'd'}], 'texts': ['a', 'b', 'c']}
+    
+    for k, v in d.items():
+        if k == 'data':
+            for i in v:
+                # Do you know what are you iterating now?
+                for k2, v2 in i.items():
+                    print(k2, v2)
+
+
+
+.. parsed-literal::
+
+    a b
+    b c
+    c d
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    
+    data_dict = {
+        'data': [{'a': 'b'}, {'b': 'c'}, {'c': 'd'}],
+        'texts': ['a', 'b', 'c']
+    }
+    
+    for key, value in data_dict.items():
+        if key == 'data':
+            for data_item in value:
+                # Do you know what are you iterating now?
+                for data_key, data_value in data_item.items():
+                    print(data_key, data_value)
+
+
+
+.. parsed-literal::
+
+    a b
+    b c
+    c d
+
+
+
+
+Readability
+-----------
+
+EAFP (easier to ask for forgiveness than permission)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Any expected problems should be caught as exceptions.
+
+**Avoid**
+
+.. code:: ipython3
+
+    import os
+    
+    # violates EAFP coding style
+    if os.path.exists("file.txt"):
+        os.unlink("file.txt")
+
+**Best practice**
+
+.. code:: ipython3
+
+    import os
+    
+    try:
+        os.unlink("file.txt")
+    # raised when file does not exist
+    except OSError:
+        pass
+
+
+
+Don’t confuse comparison of reference and of values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    a = range(10)
+    b = range(10)
+    
+    print((a is b))
+
+
+.. parsed-literal::
+
+    False
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    a = range(10)
+    b = range(10)
+    c = a
+    d = None
+    
+    print((a == b))
+    print((c is a))
+    assert d is None
+
+
+.. parsed-literal::
+
+    True
+    True
+    ok
+
+
+
+
+Comparing things to None the wrong way
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    number = None
+    
+    if number == None:
+        print("This works, but is not the preferred PEP 8 pattern")
+
+
+.. parsed-literal::
+
+    This works, but is not the preferred PEP 8 pattern
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    number = None
+    
+    if number is None:
+        print("PEP 8 Style Guide prefers this pattern")
+
+
+.. parsed-literal::
+
+    PEP 8 Style Guide prefers this pattern
+
+
+
+
+Comparing things to True the wrong way
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    flag = True
+    
+    # Not PEP 8's preferred pattern
+    if flag == True:
+        print("This works, but is not the preferred PEP 8 pattern")
+
+
+.. parsed-literal::
+
+    This works, but is not the preferred PEP 8 pattern
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    flag = True
+    
+    if flag:
+        print("PEP 8 Style Guide prefers this pattern")
+
+
+.. parsed-literal::
+
+    PEP 8 Style Guide prefers this pattern
+
+
+
+
+Using type() to compare types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    import types
+    
+    class Rectangle(object):
+        def __init__(self, width, height):
+            self.width = width
+            self.height = height
+    
+    r = Rectangle(3, 4)
+    
+    # bad
+    if type(r) is types.CellType:
+        print("object r is a cell")
+
+**Best practice**
+
+.. code:: ipython3
+
+    import types
+    
+    class Rectangle(object):
+        def __init__(self, width, height):
+            self.width = width
+            self.height = height
+    
+    r = Rectangle(3, 4)
+    
+    # good
+    if isinstance(r, types.CellType):
+        print("object r is a cell")
+
+
+
+Use the dict keys when formatting strings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    person = {
+        'first': 'Tobin',
+        'age':20
+    }
+    
+    print('{0} is {1} years old'.format(
+        person['first'],
+        person['age'])
+    )
+
+
+.. parsed-literal::
+
+    Tobin is 20 years old
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    person = {
+        'first': 'Tobin',
+        'age':20
+    }
+    
+    print('{first} is {age} years old'.format(**person))
+
+
+.. parsed-literal::
+
+    Tobin is 20 years old
+
+
+
+
+Use named tuples when returning more than one value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Avoid**
+
+.. code:: ipython3
+
+    
+    def get_name():
+        return "Richard", "Xavier", "Jones"
+    
+    name = get_name()
+    
+    # no idea what these indexes map to!
+    print(name[0], name[1], name[2])
+
+
+
+.. parsed-literal::
+
+    Richard Xavier Jones
+
+
+**Best practice**
+
+.. code:: ipython3
+
+    from collections import namedtuple
+    
+    def get_name():
+        name = namedtuple("name", ["first", "middle", "last"])
+        return name("Richard", "Xavier", "Jones")
+    
+    name = get_name()
+    
+    # much easier to read
+    print(name.first, name.middle, name.last)
+
+
+
+.. parsed-literal::
+
+    Richard Xavier Jones
+
+
+

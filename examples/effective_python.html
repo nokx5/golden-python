@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Effective Python Second Edition (sample) &mdash; golden_python 0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python patterns to avoid" href="python_antipatterns.html" />
+    <link rel="prev" title="Documentation (using Sphinx)" href="documentation_using_sphinx.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> golden_python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="style_guide.html">Style Guide for Python Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_using_sphinx.html">Documentation (using Sphinx)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Effective Python Second Edition (sample)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-1-pythonic-thinking">Chapter 1 Pythonic Thinking</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#item-4-prefer-interpolated-f-strings-over-c-style-format-strings-and-str-format">Item 4: Prefer Interpolated F-strings Over C-style Format Strings and str.format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-7-prefer-enumerate-over-range">Item 7: Prefer enumerate Over range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-8-use-zip-to-process-iterators-in-parallel">Item 8: Use zip to Process Iterators in Parallel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-2-lists-and-dictionaries">Chapter 2 Lists and Dictionaries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#item-16-prefer-get-over-in-and-keyerror-to-handle-missing-dictionaries-keys">Item 16: Prefer get Over in and KeyError to Handle Missing Dictionaries Keys</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-3-functions">Chapter 3 Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#item-19-never-unpack-more-than-three-variables">Item 19: Never Unpack More Than Three Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-20-prefer-raising-exceptions-to-returning-none">Item 20: Prefer Raising Exceptions to Returning None</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-22-reduce-visual-noise-with-variable-positional-arguments">Item 22: Reduce Visual Noise with Variable Positional Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-23-provide-optional-behavior-with-keywords-arguments">Item 23: Provide Optional Behavior with Keywords Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-25-enforce-clarity-with-keyword-only-and-positional-only-arguments">Item 25: Enforce Clarity with Keyword-Only and Positional-Only Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-26-define-function-decorator-with-functools-wraps">Item 26: Define Function Decorator with functools.wraps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-4-comprehensions-and-generators">Chapter 4 Comprehensions and Generators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#item-28-avoid-more-than-two-control-subexpressions-in-comprehensions">Item 28: Avoid More Than Two Control Subexpressions in Comprehensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-32-consider-generators-for-large-list-comprehensions">Item 32: Consider Generators For Large List Comprehensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-36-consider-itertools-for-working-with-iterators-and-generators">Item 36: Consider itertools for Working with Iterators and Generators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-5-classes-and-interfaces">Chapter 5 Classes and Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#item-40-initialize-parent-class-with-super">Item 40: Initialize Parent Class with super</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-43-inherit-from-collections-abc-for-custom-container-types">Item 43: Inherit from collections.abc for Custom Container Types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-6-metaclasses-and-attributes">Chapter 6 Metaclasses and Attributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#item-44-use-plain-attributes-instead-of-setter-and-getter-methods">Item 44: Use Plain Attributes Instead of Setter and Getter Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python_antipatterns.html">Python patterns to avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing_pysheet.html">Type hints - static typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="red_flags.html">Red flags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autodoc/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">golden_python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Documentation</a> &raquo;</li>
+        
+      <li>Effective Python Second Edition (sample)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/effective_python.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="effective-python-second-edition-sample">
+<h1><a class="reference external" href="https://effectivepython.com/">Effective Python Second Edition</a> (sample)<a class="headerlink" href="#effective-python-second-edition-sample" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="chapter-1-pythonic-thinking">
+<h2>Chapter 1 Pythonic Thinking<a class="headerlink" href="#chapter-1-pythonic-thinking" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-4-prefer-interpolated-f-strings-over-c-style-format-strings-and-str-format">
+<h3>Item 4: Prefer Interpolated F-strings Over C-style Format Strings and str.format<a class="headerlink" href="#item-4-prefer-interpolated-f-strings-over-c-style-format-strings-and-str-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 28</span>
+<span class="n">places</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">number</span> <span class="o">=</span> <span class="mf">1.23456</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;My number is </span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s1">.</span><span class="si">{</span><span class="n">places</span><span class="si">}</span><span class="s1">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">1.235</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-7-prefer-enumerate-over-range">
+<h3>Item 7: Prefer enumerate Over range<a class="headerlink" href="#item-7-prefer-enumerate-over-range" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 5</span>
+<span class="n">flavor_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;vanilla&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;pecan&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">flavor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">flavor_list</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">flavor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">:</span> <span class="n">vanilla</span>
+<span class="mi">2</span><span class="p">:</span> <span class="n">chocolate</span>
+<span class="mi">3</span><span class="p">:</span> <span class="n">pecan</span>
+<span class="mi">4</span><span class="p">:</span> <span class="n">strawberry</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-8-use-zip-to-process-iterators-in-parallel">
+<h3>Item 8: Use zip to Process Iterators in Parallel<a class="headerlink" href="#item-8-use-zip-to-process-iterators-in-parallel" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cecilia&#39;</span><span class="p">,</span> <span class="s1">&#39;Lise&#39;</span><span class="p">,</span> <span class="s1">&#39;Marie&#39;</span><span class="p">]</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Example 6</span>
+<span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Rosalind&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cecilia</span><span class="p">:</span> <span class="mi">7</span>
+<span class="n">Lise</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">Marie</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">Cecilia</span><span class="p">:</span> <span class="mi">7</span>
+<span class="n">Lise</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">Marie</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">Rosalind</span><span class="p">:</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="chapter-2-lists-and-dictionaries">
+<h2>Chapter 2 Lists and Dictionaries<a class="headerlink" href="#chapter-2-lists-and-dictionaries" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-16-prefer-get-over-in-and-keyerror-to-handle-missing-dictionaries-keys">
+<h3>Item 16: Prefer get Over in and KeyError to Handle Missing Dictionaries Keys<a class="headerlink" href="#item-16-prefer-get-over-in-and-keyerror-to-handle-missing-dictionaries-keys" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
+<span class="n">counters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;pumpernickel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;sourdough&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Example 2 - bad</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;wheat&#39;</span>
+
+<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">:</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">counters</span><span class="p">)</span>
+
+<span class="c1"># Example 3 - still bad</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;brioche&#39;</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">counters</span><span class="p">)</span>
+
+
+<span class="c1"># Example 4 - best practice</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;multigrain&#39;</span>
+
+<span class="n">count</span> <span class="o">=</span> <span class="n">counters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">counters</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;pumpernickel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sourdough&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">{</span><span class="s1">&#39;pumpernickel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sourdough&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;brioche&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">{</span><span class="s1">&#39;pumpernickel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sourdough&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;brioche&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;multigrain&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="chapter-3-functions">
+<h2>Chapter 3 Functions<a class="headerlink" href="#chapter-3-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-19-never-unpack-more-than-three-variables">
+<h3>Item 19: Never Unpack More Than Three Variables<a class="headerlink" href="#item-19-never-unpack-more-than-three-variables" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">63</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">70</span><span class="p">]</span>
+
+
+<span class="c1"># Example 3</span>
+<span class="k">def</span> <span class="nf">get_avg_ratio</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="n">scaled</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">average</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+    <span class="n">scaled</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">scaled</span>
+
+<span class="n">longest</span><span class="p">,</span> <span class="o">*</span><span class="n">middle</span><span class="p">,</span> <span class="n">shortest</span> <span class="o">=</span> <span class="n">get_avg_ratio</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Longest:  </span><span class="si">{</span><span class="n">longest</span><span class="si">:</span><span class="s1">&gt;4.0%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Shortest: </span><span class="si">{</span><span class="n">shortest</span><span class="si">:</span><span class="s1">&gt;4.0%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Longest</span><span class="p">:</span>  <span class="mi">108</span><span class="o">%</span>
+<span class="n">Shortest</span><span class="p">:</span>  <span class="mi">89</span><span class="o">%</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-20-prefer-raising-exceptions-to-returning-none">
+<h3>Item 20: Prefer Raising Exceptions to Returning None<a class="headerlink" href="#item-20-prefer-raising-exceptions-to-returning-none" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 7</span>
+<span class="k">def</span> <span class="nf">careful_divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid inputs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-22-reduce-visual-noise-with-variable-positional-arguments">
+<h3>Item 22: Reduce Visual Noise with Variable Positional Arguments<a class="headerlink" href="#item-22-reduce-visual-noise-with-variable-positional-arguments" title="Permalink to this headline">¶</a></h3>
+<p>Positional arguments synthax is using one star “*”. List can be passed
+as positional arguments.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 2</span>
+<span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">):</span>  <span class="c1"># The only difference</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">values_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">values_str</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">log</span><span class="p">(</span><span class="s1">&#39;My numbers are&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">log</span><span class="p">(</span><span class="s1">&#39;Hi there&#39;</span><span class="p">)</span>  <span class="c1"># Much better</span>
+
+
+<span class="c1"># Example 3</span>
+<span class="n">favorites</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span><span class="p">]</span>
+<span class="n">log</span><span class="p">(</span><span class="s1">&#39;Favorite colors&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">favorites</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">numbers</span> <span class="n">are</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="n">Hi</span> <span class="n">there</span>
+<span class="n">Favorite</span> <span class="n">colors</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-23-provide-optional-behavior-with-keywords-arguments">
+<h3>Item 23: Provide Optional Behavior with Keywords Arguments<a class="headerlink" href="#item-23-provide-optional-behavior-with-keywords-arguments" title="Permalink to this headline">¶</a></h3>
+<p>Keyword arguments synthax is using two stars “**”. Dict can be passed
+as keywords arguments.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 8</span>
+<span class="k">def</span> <span class="nf">print_parameters</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">print_parameters</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-25-enforce-clarity-with-keyword-only-and-positional-only-arguments">
+<h3>Item 25: Enforce Clarity with Keyword-Only and Positional-Only Arguments<a class="headerlink" href="#item-25-enforce-clarity-with-keyword-only-and-positional-only-arguments" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 16</span>
+<span class="k">def</span> <span class="nf">safe_division_e</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">denominator</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span>
+                    <span class="n">ndigits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>                <span class="c1"># Changed</span>
+                    <span class="n">ignore_overflow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">ignore_zero_division</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fraction</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>        <span class="c1"># Changed</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">fraction</span><span class="p">,</span> <span class="n">ndigits</span><span class="p">)</span>           <span class="c1"># Changed</span>
+    <span class="k">except</span> <span class="ne">OverflowError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ignore_overflow</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ignore_zero_division</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+<span class="c1"># Example 17</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">safe_division_e</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">safe_division_e</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">safe_division_e</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">3.1428571429</span>
+<span class="mf">3.14286</span>
+<span class="mf">3.14</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-26-define-function-decorator-with-functools-wraps">
+<h3>Item 26: Define Function Decorator with functools.wraps<a class="headerlink" href="#item-26-define-function-decorator-with-functools-wraps" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 8</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="n">args</span><span class="si">!r}</span><span class="s1">, </span><span class="si">{</span><span class="n">kwargs</span><span class="si">!r}</span><span class="s1">) &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;-&gt; </span><span class="si">{</span><span class="n">result</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nd">@trace</span>
+<span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the n-th Fibonacci number&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">fibonacci</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fibonacci</span><span class="p">((</span><span class="mi">1</span><span class="p">,),</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="n">fibonacci</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="mi">0</span>
+<span class="n">fibonacci</span><span class="p">((</span><span class="mi">1</span><span class="p">,),</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="n">fibonacci</span><span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="n">fibonacci</span><span class="p">((</span><span class="mi">3</span><span class="p">,),</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="chapter-4-comprehensions-and-generators">
+<h2>Chapter 4 Comprehensions and Generators<a class="headerlink" href="#chapter-4-comprehensions-and-generators" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-28-avoid-more-than-two-control-subexpressions-in-comprehensions">
+<h3>Item 28: Avoid More Than Two Control Subexpressions in Comprehensions<a class="headerlink" href="#item-28-avoid-more-than-two-control-subexpressions-in-comprehensions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 6</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="p">[[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matrix</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-32-consider-generators-for-large-list-comprehensions">
+<h3>Item 32: Consider Generators For Large List Comprehensions<a class="headerlink" href="#item-32-consider-generators-for-large-list-comprehensions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">it</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+
+<span class="c1"># Example 3</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+
+
+<span class="c1"># Example 4</span>
+<span class="n">roots</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">it</span><span class="p">)</span>
+
+
+<span class="c1"># Example 5</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">roots</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span>
+<span class="mi">1</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.4142135623730951</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-36-consider-itertools-for-working-with-iterators-and-generators">
+<h3>Item 36: Consider itertools for Working with Iterators and Generators<a class="headerlink" href="#item-36-consider-itertools-for-working-with-iterators-and-generators" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+
+<span class="c1"># Example 2</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+
+
+<span class="c1"># Example 3</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+
+
+<span class="c1"># Example 4</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="chapter-5-classes-and-interfaces">
+<h2>Chapter 5 Classes and Interfaces<a class="headerlink" href="#chapter-5-classes-and-interfaces" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-40-initialize-parent-class-with-super">
+<h3>Item 40: Initialize Parent Class with super<a class="headerlink" href="#item-40-initialize-parent-class-with-super" title="Permalink to this headline">¶</a></h3>
+<p>The Method Resolution Order (MRO) defines the ordering in which
+superclasses are initialized, following an algorithm called C3
+linearization.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 9</span>
+<span class="k">class</span> <span class="nc">MyBaseClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+<span class="k">class</span> <span class="nc">TimesSevenCorrect</span><span class="p">(</span><span class="n">MyBaseClass</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*=</span> <span class="mi">7</span>
+
+<span class="k">class</span> <span class="nc">PlusNineCorrect</span><span class="p">(</span><span class="n">MyBaseClass</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">9</span>
+
+
+<span class="c1"># Example 10</span>
+<span class="k">class</span> <span class="nc">GoodWay</span><span class="p">(</span><span class="n">TimesSevenCorrect</span><span class="p">,</span> <span class="n">PlusNineCorrect</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">foo</span> <span class="o">=</span> <span class="n">GoodWay</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Should be 7 * (5 + 9) = 98 and is&#39;</span><span class="p">,</span> <span class="n">foo</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="c1"># Example 11</span>
+<span class="n">mro_str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">GoodWay</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mro_str</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Should be 7 * (5 + 9) = 98 and is 98
+&lt;class &#39;__main__.GoodWay&#39;&gt;
+&lt;class &#39;__main__.TimesSevenCorrect&#39;&gt;
+&lt;class &#39;__main__.PlusNineCorrect&#39;&gt;
+&lt;class &#39;__main__.MyBaseClass&#39;&gt;
+&lt;class &#39;object&#39;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-43-inherit-from-collections-abc-for-custom-container-types">
+<h3>Item 43: Inherit from collections.abc for Custom Container Types<a class="headerlink" href="#item-43-inherit-from-collections-abc-for-custom-container-types" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
+<span class="k">class</span> <span class="nc">FrequencyList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">members</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">counts</span>
+
+
+<span class="c1"># Example 2</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">FrequencyList</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Length is&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">foo</span><span class="p">))</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;After pop:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">foo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Frequency:&#39;</span><span class="p">,</span> <span class="n">foo</span><span class="o">.</span><span class="n">frequency</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Length</span> <span class="ow">is</span> <span class="mi">7</span>
+<span class="n">After</span> <span class="n">pop</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">Frequency</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="chapter-6-metaclasses-and-attributes">
+<h2>Chapter 6 Metaclasses and Attributes<a class="headerlink" href="#chapter-6-metaclasses-and-attributes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-44-use-plain-attributes-instead-of-setter-and-getter-methods">
+<h3>Item 44: Use Plain Attributes Instead of Setter and Getter Methods<a class="headerlink" href="#item-44-use-plain-attributes-instead-of-setter-and-getter-methods" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 4</span>
+<span class="k">class</span> <span class="nc">Resistor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ohms</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ohms</span> <span class="o">=</span> <span class="n">ohms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">voltage</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">r1</span> <span class="o">=</span> <span class="n">Resistor</span><span class="p">(</span><span class="mf">50e3</span><span class="p">)</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">ohms</span> <span class="o">=</span> <span class="mf">10e3</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r1</span><span class="o">.</span><span class="n">ohms</span><span class="si">}</span><span class="s1"> ohms, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r1</span><span class="o">.</span><span class="n">voltage</span><span class="si">}</span><span class="s1"> volts, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r1</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1"> amps&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Example 5</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">ohms</span> <span class="o">+=</span> <span class="mf">5e3</span>
+
+<span class="c1"># Example 6</span>
+<span class="k">class</span> <span class="nc">VoltageResistance</span><span class="p">(</span><span class="n">Resistor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ohms</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">ohms</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_voltage</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voltage</span>
+
+    <span class="nd">@voltage</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voltage</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_voltage</span> <span class="o">=</span> <span class="n">voltage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voltage</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ohms</span>
+
+
+<span class="c1"># Example 7</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">VoltageResistance</span><span class="p">(</span><span class="mf">1e3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Before: </span><span class="si">{</span><span class="n">r2</span><span class="o">.</span><span class="n">current</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> amps&#39;</span><span class="p">)</span>
+<span class="n">r2</span><span class="o">.</span><span class="n">voltage</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After:  </span><span class="si">{</span><span class="n">r2</span><span class="o">.</span><span class="n">current</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> amps&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">10000.0</span> <span class="n">ohms</span><span class="p">,</span> <span class="mi">0</span> <span class="n">volts</span><span class="p">,</span> <span class="mi">0</span> <span class="n">amps</span>
+<span class="n">Before</span><span class="p">:</span> <span class="mf">0.00</span> <span class="n">amps</span>
+<span class="n">After</span><span class="p">:</span>  <span class="mf">0.01</span> <span class="n">amps</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="python_antipatterns.html" class="btn btn-neutral float-right" title="Python patterns to avoid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="documentation_using_sphinx.html" class="btn btn-neutral float-left" title="Documentation (using Sphinx)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright MIT.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

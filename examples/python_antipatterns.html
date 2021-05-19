@@ -1,0 +1,733 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Python patterns to avoid &mdash; golden_python 0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Type hints - static typing" href="typing_pysheet.html" />
+    <link rel="prev" title="Effective Python Second Edition (sample)" href="effective_python.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> golden_python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="style_guide.html">Style Guide for Python Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_using_sphinx.html">Documentation (using Sphinx)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effective_python.html">Effective Python Second Edition (sample)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python patterns to avoid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#correctness">Correctness</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#avoid-assigning-a-lambda-expression-to-a-variable">Avoid assigning a lambda expression to a variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#avoid-using-future-import-in-the-middle-of-the-code">Avoid using __future__ import (in the middle of the code)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dont-implement-java-style-getters-and-setters">Don’t implement Java-style getters and setters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-generic-function-in-the-class-instead-of-a-method">Create generic function in the class instead of a method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#never-use-a-mutable-default-argument">Never use a mutable default argument !!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-get-to-return-a-value-from-a-dict">Use get() to return a value from a dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-setdefault-to-initialize-a-dictionary-for-the-same-reason">Use setdefault() to initialize a dictionary (for the same reason)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#be-aware-of-defaultdict-and-missing-method">Be aware of defaultdict and __missing__ method</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#maintainability">Maintainability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-with-to-open-files">Use with to open files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-single-letter-to-name-your-variables">Using single letter to name your variables</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#readability">Readability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#eafp-easier-to-ask-for-forgiveness-than-permission">EAFP (easier to ask for forgiveness than permission)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dont-confuse-comparison-of-reference-and-of-values">Don’t confuse comparison of reference and of values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comparing-things-to-none-the-wrong-way">Comparing things to None the wrong way</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comparing-things-to-true-the-wrong-way">Comparing things to True the wrong way</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-type-to-compare-types">Using type() to compare types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-dict-keys-when-formatting-strings">Use the dict keys when formatting strings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-named-tuples-when-returning-more-than-one-value">Use named tuples when returning more than one value</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="typing_pysheet.html">Type hints - static typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="red_flags.html">Red flags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autodoc/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">golden_python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Documentation</a> &raquo;</li>
+        
+      <li>Python patterns to avoid</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/python_antipatterns.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-patterns-to-avoid">
+<h1><a class="reference external" href="https://docs.quantifiedcode.com/python-anti-patterns">Python patterns to avoid</a><a class="headerlink" href="#python-patterns-to-avoid" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="correctness">
+<h2>Correctness<a class="headerlink" href="#correctness" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="avoid-assigning-a-lambda-expression-to-a-variable">
+<h3>Avoid assigning a lambda expression to a variable<a class="headerlink" href="#avoid-assigning-a-lambda-expression-to-a-variable" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="avoid-using-future-import-in-the-middle-of-the-code">
+<h3>Avoid using __future__ import (in the middle of the code)<a class="headerlink" href="#avoid-using-future-import-in-the-middle-of-the-code" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>  <span class="c1"># 1</span>
+
+<span class="c1"># SyntaxError</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+
+<span class="c1"># 1.1428571428571428</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.1428571428571428</span>
+<span class="mf">1.1428571428571428</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scenario 1: if possible, remove __future__ import statement</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>  <span class="c1"># 1</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.1428571428571428</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scenario 2: if required, always place __future__ import at the beginning of the module</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+
+<span class="c1"># 1.1428571428571428</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.1428571428571428</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dont-implement-java-style-getters-and-setters">
+<h3>Don’t implement Java-style getters and setters<a class="headerlink" href="#dont-implement-java-style-getters-and-setters" title="Permalink to this headline">¶</a></h3>
+<p>In most programming languages, methods are used to access attributes.</p>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Square</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
+    <span class="c1"># Java-style</span>
+    <span class="k">def</span> <span class="nf">get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+    <span class="c1"># Java-style</span>
+    <span class="k">def</span> <span class="nf">set_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set_length</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the members directly</span>
+<span class="k">class</span> <span class="nc">Square</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">length</span>
+<span class="n">r</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="c1"># Use built-in property decorator</span>
+<span class="k">class</span> <span class="nc">newSquare</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
+
+    <span class="nd">@property</span> <span class="c1"># getter</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+    <span class="nd">@length</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@length</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">newSquare</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">length</span>  <span class="c1"># automatically calls getter</span>
+<span class="n">r</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># automatically calls setter</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-generic-function-in-the-class-instead-of-a-method">
+<h3>Create generic function in the class instead of a method<a class="headerlink" href="#create-generic-function-in-the-class-instead-of-a-method" title="Permalink to this headline">¶</a></h3>
+<p>The method of the class can be more generic (associate to the object and
+to the class scope). If possible, make those functionalities more
+generic.</p>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">height</span>
+
+    <span class="k">def</span> <span class="nf">print_class_name</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;class name: Rectangle&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="c1"># clarifies that this is a static method and belongs here</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">width</span> <span class="o">*</span> <span class="n">height</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">print_class_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="c1"># &quot;class name: Rectangle&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;class name: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="never-use-a-mutable-default-argument">
+<h3>Never use a mutable default argument !!<a class="headerlink" href="#never-use-a-mutable-default-argument" title="Permalink to this headline">¶</a></h3>
+<p>The arguments of a function share the same default object.</p>
+<p>For this reason, default mutable arguments should be avoided.</p>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">number_list</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">number_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">number_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">number_list</span>
+
+<span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># expecting: [5], actual: [5]</span>
+<span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># expecting: [7], actual: [5, 7]</span>
+<span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># expecting: [2], actual: [5, 7, 2]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">number_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">number_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">number_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">number_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">number_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">number_list</span>
+
+<span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># expecting: [5], actual: [5]</span>
+<span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># expecting: [7], actual: [7]</span>
+<span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># expecting: [2], actual: [2]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-get-to-return-a-value-from-a-dict">
+<h3>Use get() to return a value from a dict<a class="headerlink" href="#use-get-to-return-a-value-from-a-dict" title="Permalink to this headline">¶</a></h3>
+<p>Repetition is the key.</p>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello, World!&quot;</span><span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">if</span> <span class="s2">&quot;message&quot;</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Hello, World!</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, World!
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello, World!&quot;</span><span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Hello, World!</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, World!
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-setdefault-to-initialize-a-dictionary-for-the-same-reason">
+<h3>Use setdefault() to initialize a dictionary (for the same reason)<a class="headerlink" href="#use-setdefault-to-initialize-a-dictionary-for-the-same-reason" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">if</span> <span class="s2">&quot;list&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+    <span class="n">dictionary</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">dictionary</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;list_item&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">dictionary</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;list_item&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="be-aware-of-defaultdict-and-missing-method">
+<h3>Be aware of defaultdict and __missing__ method<a class="headerlink" href="#be-aware-of-defaultdict-and-missing-method" title="Permalink to this headline">¶</a></h3>
+<p>In some circonstances, using defaultdict or implementing a missing
+method for a dict could be a better practice.</p>
+</div>
+</div>
+<div class="section" id="maintainability">
+<h2>Maintainability<a class="headerlink" href="#maintainability" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-with-to-open-files">
+<h3>Use with to open files<a class="headerlink" href="#use-with-to-open-files" title="Permalink to this headline">¶</a></h3>
+<p>Consider contextlib and with statement for a clean try/finally block
+execution.</p>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>  <span class="c1"># ZeroDivisionError</span>
+<span class="c1"># never executes, possible memory issues or file corruption</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># Python still executes f.close() even though an exception occurs</span>
+    <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-single-letter-to-name-your-variables">
+<h3>Using single letter to name your variables<a class="headerlink" href="#using-single-letter-to-name-your-variables" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">}],</span> <span class="s1">&#39;texts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]}</span>
+
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="c1"># Do you know what are you iterating now?</span>
+            <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">v2</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">k2</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="n">b</span>
+<span class="n">b</span> <span class="n">c</span>
+<span class="n">c</span> <span class="n">d</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">}],</span>
+    <span class="s1">&#39;texts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">data_item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="c1"># Do you know what are you iterating now?</span>
+            <span class="k">for</span> <span class="n">data_key</span><span class="p">,</span> <span class="n">data_value</span> <span class="ow">in</span> <span class="n">data_item</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">data_key</span><span class="p">,</span> <span class="n">data_value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="n">b</span>
+<span class="n">b</span> <span class="n">c</span>
+<span class="n">c</span> <span class="n">d</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="readability">
+<h2>Readability<a class="headerlink" href="#readability" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="eafp-easier-to-ask-for-forgiveness-than-permission">
+<h3>EAFP (easier to ask for forgiveness than permission)<a class="headerlink" href="#eafp-easier-to-ask-for-forgiveness-than-permission" title="Permalink to this headline">¶</a></h3>
+<p>Any expected problems should be caught as exceptions.</p>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># violates EAFP coding style</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">)</span>
+<span class="c1"># raised when file does not exist</span>
+<span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dont-confuse-comparison-of-reference-and-of-values">
+<h3>Don’t confuse comparison of reference and of values<a class="headerlink" href="#dont-confuse-comparison-of-reference-and-of-values" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">((</span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">False</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">d</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nb">print</span><span class="p">((</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">c</span> <span class="ow">is</span> <span class="n">a</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">True</span>
+<span class="kc">True</span>
+<span class="n">ok</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparing-things-to-none-the-wrong-way">
+<h3>Comparing things to None the wrong way<a class="headerlink" href="#comparing-things-to-none-the-wrong-way" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This works, but is not the preferred PEP 8 pattern&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">works</span><span class="p">,</span> <span class="n">but</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">preferred</span> <span class="n">PEP</span> <span class="mi">8</span> <span class="n">pattern</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">number</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PEP 8 Style Guide prefers this pattern&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PEP</span> <span class="mi">8</span> <span class="n">Style</span> <span class="n">Guide</span> <span class="n">prefers</span> <span class="n">this</span> <span class="n">pattern</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparing-things-to-true-the-wrong-way">
+<h3>Comparing things to True the wrong way<a class="headerlink" href="#comparing-things-to-true-the-wrong-way" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Not PEP 8&#39;s preferred pattern</span>
+<span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This works, but is not the preferred PEP 8 pattern&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">works</span><span class="p">,</span> <span class="n">but</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">preferred</span> <span class="n">PEP</span> <span class="mi">8</span> <span class="n">pattern</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PEP 8 Style Guide prefers this pattern&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PEP</span> <span class="mi">8</span> <span class="n">Style</span> <span class="n">Guide</span> <span class="n">prefers</span> <span class="n">this</span> <span class="n">pattern</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-type-to-compare-types">
+<h3>Using type() to compare types<a class="headerlink" href="#using-type-to-compare-types" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">types</span>
+
+<span class="k">class</span> <span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># bad</span>
+<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">types</span><span class="o">.</span><span class="n">CellType</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;object r is a cell&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">types</span>
+
+<span class="k">class</span> <span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">CellType</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;object r is a cell&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-the-dict-keys-when-formatting-strings">
+<h3>Use the dict keys when formatting strings<a class="headerlink" href="#use-the-dict-keys-when-formatting-strings" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="s1">&#39;Tobin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span><span class="mi">20</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> is </span><span class="si">{1}</span><span class="s1"> years old&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">person</span><span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">],</span>
+    <span class="n">person</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tobin</span> <span class="ow">is</span> <span class="mi">20</span> <span class="n">years</span> <span class="n">old</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="s1">&#39;Tobin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span><span class="mi">20</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{first}</span><span class="s1"> is </span><span class="si">{age}</span><span class="s1"> years old&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">person</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tobin</span> <span class="ow">is</span> <span class="mi">20</span> <span class="n">years</span> <span class="n">old</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-named-tuples-when-returning-more-than-one-value">
+<h3>Use named tuples when returning more than one value<a class="headerlink" href="#use-named-tuples-when-returning-more-than-one-value" title="Permalink to this headline">¶</a></h3>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_name</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Richard&quot;</span><span class="p">,</span> <span class="s2">&quot;Xavier&quot;</span><span class="p">,</span> <span class="s2">&quot;Jones&quot;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="n">get_name</span><span class="p">()</span>
+
+<span class="c1"># no idea what these indexes map to!</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Richard</span> <span class="n">Xavier</span> <span class="n">Jones</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="k">def</span> <span class="nf">get_name</span><span class="p">():</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="s2">&quot;last&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">name</span><span class="p">(</span><span class="s2">&quot;Richard&quot;</span><span class="p">,</span> <span class="s2">&quot;Xavier&quot;</span><span class="p">,</span> <span class="s2">&quot;Jones&quot;</span><span class="p">)</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="n">get_name</span><span class="p">()</span>
+
+<span class="c1"># much easier to read</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">middle</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Richard</span> <span class="n">Xavier</span> <span class="n">Jones</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="typing_pysheet.html" class="btn btn-neutral float-right" title="Type hints - static typing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="effective_python.html" class="btn btn-neutral float-left" title="Effective Python Second Edition (sample)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright MIT.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

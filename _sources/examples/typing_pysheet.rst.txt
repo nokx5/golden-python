@@ -1,0 +1,155 @@
+Type hints - static typing
+==========================
+
+The main goal of this `cheat
+sheet <https://www.pythonsheets.com/notes/python-typing.html>`__ is to
+show some common usage about type hints in Python3.
+
+As a rule of thumb, if you know the typing, add it.
+
+.. code:: ipython3
+
+    # give a type hint
+    from typing import Generator
+    
+    # Generator[YieldType, SendType, ReturnType]
+    def fib(n: int) -> Generator[int, None, None]:
+        a: int = 0
+        b: int = 1
+        for _ in range(n):
+            yield a
+            b, a = a + b, b
+    
+    print([n for n in fib(3.6)])
+    
+    # # errors will be detected before running
+    #
+    # $ mypy --strict fib.py
+    # fib.py:12: error: Argument 1 to "fib" has incompatible type "float"; expected "int"
+
+Basic Types
+-----------
+
+.. code:: ipython3
+
+    import io
+    import re
+    
+    from collections import deque, namedtuple
+    from typing import (
+        Dict,
+        List,
+        Tuple,
+        Set,
+        Deque,
+        NamedTuple,
+        IO,
+        Pattern,
+        Match,
+        Text,
+        Optional,
+        Sequence,
+        Iterable,
+        Mapping,
+        MutableMapping,
+        Any,
+        Union,
+    )
+    
+    # without initializing
+    x: int
+    
+    # any type
+    y: Any
+    y = 1
+    y = "1"
+    
+    # built-in
+    var_int: int = 1
+    var_str: str = "Hello Typing"
+    var_byte: bytes = b"Hello Typing"
+    var_bool: bool = True
+    var_float: float = 1.
+    var_unicode: Text = u'\u2713'
+    
+    # could be none
+    var_could_be_none: Optional[int] = None
+    var_could_be_none = 1
+    
+    # collections
+    var_set: Set[int] = {i for i in range(3)}
+    var_dict: Dict[str, str] = {"foo": "Foo"}
+    var_list: List[int] = [i for i in range(3)]
+    var_Tuple: Tuple = (1, 2, 3)
+    var_deque: Deque = deque([1, 2, 3])
+    var_nametuple: NamedTuple = namedtuple('P', ['x', 'y'])
+    
+    # duck types: list-like
+    var_seq_list: Sequence[int] = [1, 2, 3]
+    var_seq_tuple: Sequence[int] = (1, 2, 3)
+    var_iter_list: Iterable[int] = [1, 2, 3]
+    var_iter_tuple: Iterable[int] = (1, 2, 3)
+    
+    # duck types: dict-like
+    var_map_dict: Mapping[str, str] = {"foo": "Foo"}
+    var_mutable_dict: MutableMapping[str, str] = {"bar": "Bar"}
+
+Multiple return values
+----------------------
+
+.. code:: ipython3
+
+    from typing import Tuple, Iterable, Union
+    
+    def foo(x: int, y: int) -> Tuple[int, int]:
+        return x, y
+    
+    # or
+    
+    def bar(x: int, y: str) -> Iterable[Union[int, str]]:
+        # XXX: not recommend declaring in this way
+        return x, y
+    
+    a: int
+    b: int
+    a, b = foo(1, 2)      # ok
+    c, d = bar(3, "bar")  # ok
+
+Union[Any, None] == Optional[Any]
+---------------------------------
+
+.. code:: ipython3
+
+    from typing import List, Union
+    
+    def first(l: List[Union[int, None]]) -> Union[int, None]:
+        return None if len(l) == 0 else l[0]
+    
+    first([None])
+    
+    # equal to
+    
+    from typing import List, Optional
+    
+    def first(l: List[Optional[int]]) -> Optional[int]:
+        return None if len(l) == 0 else l[0]
+    
+    first([None])
+
+Forward references
+------------------
+
+.. code:: ipython3
+
+    from typing import Optional
+    
+    
+    class Tree:
+        def __init__(
+            self, data: int,
+            left: Optional["Tree"],  # Forward references.
+            right: Optional["Tree"]
+        ) -> None:
+            self.data = data
+            self.left = left
+            self.right = right

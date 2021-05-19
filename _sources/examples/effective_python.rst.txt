@@ -1,0 +1,558 @@
+`Effective Python Second Edition <https://effectivepython.com/>`__ (sample)
+===========================================================================
+
+Chapter 1 Pythonic Thinking
+---------------------------
+
+Item 4: Prefer Interpolated F-strings Over C-style Format Strings and str.format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 28
+    places = 3
+    number = 1.23456
+    print(f'My number is {number:.{places}f}')
+
+
+
+.. parsed-literal::
+
+    My number is 1.235
+
+
+Item 7: Prefer enumerate Over range
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 5
+    flavor_list = ['vanilla', 'chocolate', 'pecan', 'strawberry']
+    for i, flavor in enumerate(flavor_list):
+        print(f'{i + 1}: {flavor}')
+
+
+
+.. parsed-literal::
+
+    1: vanilla
+    2: chocolate
+    3: pecan
+    4: strawberry
+
+
+Item 8: Use zip to Process Iterators in Parallel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    names = ['Cecilia', 'Lise', 'Marie']
+    counts = [len(n) for n in names]
+    
+    for name, count in zip(names, counts):
+        print(f'{name}: {count}')
+    
+    
+    # Example 6
+    names.append('Rosalind')
+    import itertools
+    
+    for name, count in itertools.zip_longest(names, counts):
+        print(f'{name}: {count}')
+
+
+
+.. parsed-literal::
+
+    Cecilia: 7
+    Lise: 4
+    Marie: 5
+    Cecilia: 7
+    Lise: 4
+    Marie: 5
+    Rosalind: None
+
+
+Chapter 2 Lists and Dictionaries
+--------------------------------
+
+Item 16: Prefer get Over in and KeyError to Handle Missing Dictionaries Keys
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    # Example 1
+    counters = {
+        'pumpernickel': 2,
+        'sourdough': 1,
+    }
+    
+    
+    # Example 2 - bad
+    key = 'wheat'
+    
+    if key in counters:
+        count = counters[key]
+    else:
+        count = 0
+    
+    counters[key] = count + 1
+    
+    print(counters)
+    
+    # Example 3 - still bad
+    key = 'brioche'
+    
+    try:
+        count = counters[key]
+    except KeyError:
+        count = 0
+    
+    counters[key] = count + 1
+    
+    print(counters)
+    
+    
+    # Example 4 - best practice
+    key = 'multigrain'
+    
+    count = counters.get(key, 0)
+    counters[key] = count + 1
+    
+    print(counters)
+
+
+
+.. parsed-literal::
+
+    {'pumpernickel': 2, 'sourdough': 1, 'wheat': 1}
+    {'pumpernickel': 2, 'sourdough': 1, 'wheat': 1, 'brioche': 1}
+    {'pumpernickel': 2, 'sourdough': 1, 'wheat': 1, 'brioche': 1, 'multigrain': 1}
+
+
+Chapter 3 Functions
+-------------------
+
+Item 19: Never Unpack More Than Three Variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    lengths = [63, 73, 72, 60, 67, 66, 71, 61, 72, 70]
+    
+    
+    # Example 3
+    def get_avg_ratio(numbers):
+        average = sum(numbers) / len(numbers)
+        scaled = [x / average for x in numbers]
+        scaled.sort(reverse=True)
+        return scaled
+    
+    longest, *middle, shortest = get_avg_ratio(lengths)
+    
+    print(f'Longest:  {longest:>4.0%}')
+    print(f'Shortest: {shortest:>4.0%}')
+
+
+
+.. parsed-literal::
+
+    Longest:  108%
+    Shortest:  89%
+
+
+Item 20: Prefer Raising Exceptions to Returning None
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 7
+    def careful_divide(a, b):
+        try:
+            return a / b
+        except ZeroDivisionError as e:
+            raise ValueError('Invalid inputs')
+
+
+Item 22: Reduce Visual Noise with Variable Positional Arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Positional arguments synthax is using one star “\*”. List can be passed
+as positional arguments.
+
+.. code:: ipython3
+
+    
+    # Example 2
+    def log(message, *values):  # The only difference
+        if not values:
+            print(message)
+        else:
+            values_str = ', '.join(str(x) for x in values)
+            print(f'{message}: {values_str}')
+    
+    log('My numbers are', 1, 2)
+    log('Hi there')  # Much better
+    
+    
+    # Example 3
+    favorites = [7, 33, 99]
+    log('Favorite colors', *favorites)
+
+
+
+.. parsed-literal::
+
+    My numbers are: 1, 2
+    Hi there
+    Favorite colors: 7, 33, 99
+
+
+Item 23: Provide Optional Behavior with Keywords Arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Keyword arguments synthax is using two stars “\*\*”. Dict can be passed
+as keywords arguments.
+
+.. code:: ipython3
+
+    
+    # Example 8
+    def print_parameters(**kwargs):
+        for key, value in kwargs.items():
+            print(f'{key} = {value}')
+    
+    print_parameters(alpha=1.5, beta=9, gamma=4)
+
+
+
+.. parsed-literal::
+
+    alpha = 1.5
+    beta = 9
+    gamma = 4
+
+
+Item 25: Enforce Clarity with Keyword-Only and Positional-Only Arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 16
+    def safe_division_e(numerator, denominator, /,
+                        ndigits=10, *,                # Changed
+                        ignore_overflow=False,
+                        ignore_zero_division=False):
+        try:
+            fraction = numerator / denominator        # Changed
+            return round(fraction, ndigits)           # Changed
+        except OverflowError:
+            if ignore_overflow:
+                return 0
+            else:
+                raise
+        except ZeroDivisionError:
+            if ignore_zero_division:
+                return float('inf')
+            else:
+                raise
+    
+    # Example 17
+    result = safe_division_e(22, 7)
+    print(result)
+    
+    result = safe_division_e(22, 7, 5)
+    print(result)
+    
+    result = safe_division_e(22, 7, ndigits=2)
+    print(result)
+
+
+
+.. parsed-literal::
+
+    3.1428571429
+    3.14286
+    3.14
+
+
+Item 26: Define Function Decorator with functools.wraps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 8
+    from functools import wraps
+    
+    def trace(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            print(f'{func.__name__}({args!r}, {kwargs!r}) '
+                  f'-> {result!r}')
+            return result
+        return wrapper
+    
+    @trace
+    def fibonacci(n):
+        """Return the n-th Fibonacci number"""
+        if n in (0, 1):
+            return n
+        return fibonacci(n - 2) + fibonacci(n - 1)
+    
+    fibonacci(3)
+
+
+
+.. parsed-literal::
+
+    fibonacci((1,), {}) -> 1
+    fibonacci((0,), {}) -> 0
+    fibonacci((1,), {}) -> 1
+    fibonacci((2,), {}) -> 1
+    fibonacci((3,), {}) -> 2
+
+
+
+
+.. parsed-literal::
+
+    2
+
+
+
+Chapter 4 Comprehensions and Generators
+---------------------------------------
+
+Item 28: Avoid More Than Two Control Subexpressions in Comprehensions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 6
+    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    filtered = [[x for x in row if x % 3 == 0]
+                for row in matrix if sum(row) >= 10]
+    print(filtered)
+
+
+
+.. parsed-literal::
+
+    [[6], [9]]
+
+
+Item 32: Consider Generators For Large List Comprehensions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    it = (_ for _ in range(10000))
+    
+    # Example 3
+    print(next(it))
+    print(next(it))
+    
+    
+    # Example 4
+    roots = ((x, x**0.5) for x in it)
+    
+    
+    # Example 5
+    print(next(roots))
+
+
+
+.. parsed-literal::
+
+    0
+    1
+    (2, 1.4142135623730951)
+
+
+Item 36: Consider itertools for Working with Iterators and Generators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 1
+    import itertools
+    
+    
+    # Example 2
+    it = itertools.chain([1, 2, 3], [4, 5, 6])
+    print(list(it))
+    
+    
+    # Example 3
+    it = itertools.repeat('hello', 3)
+    print(list(it))
+    
+    
+    # Example 4
+    it = itertools.cycle([1, 2])
+    result = [next(it) for _ in range (10)]
+    print(result)
+
+
+
+.. parsed-literal::
+
+    [1, 2, 3, 4, 5, 6]
+    ['hello', 'hello', 'hello']
+    [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+
+
+Chapter 5 Classes and Interfaces
+--------------------------------
+
+Item 40: Initialize Parent Class with super
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Method Resolution Order (MRO) defines the ordering in which
+superclasses are initialized, following an algorithm called C3
+linearization.
+
+.. code:: ipython3
+
+    
+    # Example 9
+    class MyBaseClass:
+        def __init__(self, value):
+            self.value = value
+    
+    class TimesSevenCorrect(MyBaseClass):
+        def __init__(self, value):
+            super().__init__(value)
+            self.value *= 7
+    
+    class PlusNineCorrect(MyBaseClass):
+        def __init__(self, value):
+            super().__init__(value)
+            self.value += 9
+    
+    
+    # Example 10
+    class GoodWay(TimesSevenCorrect, PlusNineCorrect):
+        def __init__(self, value):
+            super().__init__(value)
+    
+    foo = GoodWay(5)
+    print('Should be 7 * (5 + 9) = 98 and is', foo.value)
+    
+    
+    # Example 11
+    mro_str = '\n'.join(repr(cls) for cls in GoodWay.mro())
+    print(mro_str)
+
+
+
+.. parsed-literal::
+
+    Should be 7 * (5 + 9) = 98 and is 98
+    <class '__main__.GoodWay'>
+    <class '__main__.TimesSevenCorrect'>
+    <class '__main__.PlusNineCorrect'>
+    <class '__main__.MyBaseClass'>
+    <class 'object'>
+
+
+Item 43: Inherit from collections.abc for Custom Container Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 1
+    class FrequencyList(list):
+        def __init__(self, members):
+            super().__init__(members)
+    
+        def frequency(self):
+            counts = {}
+            for item in self:
+                counts[item] = counts.get(item, 0) + 1
+            return counts
+    
+    
+    # Example 2
+    foo = FrequencyList(['a', 'b', 'a', 'c', 'b', 'a', 'd'])
+    print('Length is', len(foo))
+    foo.pop()
+    print('After pop:', repr(foo))
+    print('Frequency:', foo.frequency())
+
+
+
+.. parsed-literal::
+
+    Length is 7
+    After pop: ['a', 'b', 'a', 'c', 'b', 'a']
+    Frequency: {'a': 3, 'b': 2, 'c': 1}
+
+
+Chapter 6 Metaclasses and Attributes
+------------------------------------
+
+Item 44: Use Plain Attributes Instead of Setter and Getter Methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    
+    # Example 4
+    class Resistor:
+        def __init__(self, ohms):
+            self.ohms = ohms
+            self.voltage = 0
+            self.current = 0
+    
+    r1 = Resistor(50e3)
+    r1.ohms = 10e3
+    print(f'{r1.ohms} ohms, '
+          f'{r1.voltage} volts, '
+          f'{r1.current} amps')
+    
+    
+    # Example 5
+    r1.ohms += 5e3
+    
+    # Example 6
+    class VoltageResistance(Resistor):
+        def __init__(self, ohms):
+            super().__init__(ohms)
+            self._voltage = 0
+    
+        @property
+        def voltage(self):
+            return self._voltage
+    
+        @voltage.setter
+        def voltage(self, voltage):
+            self._voltage = voltage
+            self.current = self._voltage / self.ohms
+    
+    
+    # Example 7
+    r2 = VoltageResistance(1e3)
+    print(f'Before: {r2.current:.2f} amps')
+    r2.voltage = 10
+    print(f'After:  {r2.current:.2f} amps')
+
+
+.. parsed-literal::
+
+    10000.0 ohms, 0 volts, 0 amps
+    Before: 0.00 amps
+    After:  0.01 amps
+

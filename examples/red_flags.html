@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Red flags &mdash; golden_python 0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reference" href="../autodoc/index.html" />
+    <link rel="prev" title="Type hints - static typing" href="typing_pysheet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> golden_python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="style_guide.html">Style Guide for Python Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_using_sphinx.html">Documentation (using Sphinx)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effective_python.html">Effective Python Second Edition (sample)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_antipatterns.html">Python patterns to avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing_pysheet.html">Type hints - static typing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Red flags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autodoc/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">golden_python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Documentation</a> &raquo;</li>
+        
+      <li>Red flags</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/red_flags.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="red-flags">
+<h1>Red flags<a class="headerlink" href="#red-flags" title="Permalink to this headline">¶</a></h1>
+<p>Red flags are here pieces of code that can be found but should be
+avoided at any cost.</p>
+<ol class="arabic simple">
+<li><p>If a utility makes more than 30 lines in python, think about how to
+factorize it.</p></li>
+<li><p>Decorators are great and fun → almost never use them in production.</p></li>
+<li><p>Python can be slippery (3 lines could be 3 functionalities) → python
+code should follow the single responsibility principle.</p></li>
+<li><p>For profiling, use the cProfile instead of the profile module because
+of his minimal impact on the performance of the program.</p></li>
+</ol>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cProfile</span> <span class="kn">import</span> <span class="n">Profile</span>
+<span class="n">profiler</span> <span class="o">=</span> <span class="n">Profile</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Argument parsing for boolean should never use the True or False word
+in the cmdline.</p></li>
+</ol>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;cmdline arguments&#39;</span><span class="p">)</span>
+
+<span class="c1"># Python&lt;=3.8</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--foo&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-foo&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_false&#39;</span><span class="p">)</span>
+
+<span class="c1"># # python 3.9</span>
+<span class="c1"># parser.add_argument(&quot;--foo&quot;, action=argparse.BooleanOptionalAction)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;--no-foo&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;--foo&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;--foo&#39;</span><span class="p">,</span> <span class="s1">&#39;--no-foo&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;--foo&#39;</span><span class="p">,</span> <span class="s1">&#39;--no-foo&#39;</span><span class="p">,</span> <span class="s1">&#39;--foo&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Namespace</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Namespace</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Namespace</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Namespace</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Namespace</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Never rename modules to an other existing modules.</p></li>
+</ol>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="c1"># or</span>
+<span class="kn">import</span> <span class="nn">json5</span>
+
+<span class="c1"># don&#39;t</span>
+<span class="c1"># import json5 as json</span>
+
+<span class="c1"># fine, no module called np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>A class with one method next to the constructor should not be a
+class.</p></li>
+</ol>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># avoid</span>
+<span class="k">class</span> <span class="nc">FrequencyList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">members</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">counts</span>
+
+<span class="c1"># best practice</span>
+<span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="n">members</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">counts</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>…</p></li>
+</ol>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../autodoc/index.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="typing_pysheet.html" class="btn btn-neutral float-left" title="Type hints - static typing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright MIT.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

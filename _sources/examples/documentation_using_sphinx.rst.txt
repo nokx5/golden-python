@@ -1,0 +1,200 @@
+Documentation (using Sphinx)
+============================
+
+Write Docstrings for Every Function, Class, and Module
+------------------------------------------------------
+
+.. raw:: html
+
+   <!-- This is the Item 84 of Effective Python 2nd edition from the section Collaboration. -->
+
+Once trimmed, there will be no distinction between starting on first or
+second line.
+
+1. prefer start on first line of the docstring
+
+2. don’t tab empty line of the docstring
+
+Function
+~~~~~~~~
+
+**Best practice**
+
+.. code:: ipython3
+
+    def palindrome(word):
+        """Return True if the given word is a palindrome
+    
+        'Stats' is an example of a palindrome
+        """
+        return word == word[::-1]
+    
+    print(palindrome.__doc__)
+    palindrome.__doc__
+
+
+.. parsed-literal::
+
+    Return True if the given word is a palindrome
+    
+        'Stats' is an example of a palindrome
+        
+
+
+
+
+.. parsed-literal::
+
+    "Return True if the given word is a palindrome\n\n    'Stats' is an example of a palindrome\n    "
+
+
+
+Class
+~~~~~
+
+**Best practice**
+
+.. code:: ipython3
+
+    class Player:
+        """Represents a player of the game
+    
+        Subclass may override the 'tick' method to provide
+        custom animations for the player movement depending 
+        on their power level
+    
+        Public attributes:
+        - power: Unused power-ups
+        """
+        pass
+    
+    print(Player.__doc__)
+
+
+.. parsed-literal::
+
+    Represents a player of the game
+    
+        Subclass may override the 'tick' method to provide
+        custom animations for the player movement depending 
+        on their power level
+    
+        Public attributes:
+        - power: Unused power-ups
+        
+
+
+Module
+~~~~~~
+
+**Best practice**
+
+.. code:: ipython3
+
+    # words.py
+    #!/usr/bin/env python3
+    """Library for finding linguist patterns
+    
+    Testing how words ...
+    
+    Available functions:
+    - palindrome: determine if word is a palindrome
+    ...
+    """
+    
+
+
+
+
+
+.. parsed-literal::
+
+    'Library for finding linguist patterns\n\nTesting how words ...\n\nAvailable functions:\n- palindrome: determine if word is a palindrome\n...\n'
+
+
+
+Write Docstrings for Variable
+-----------------------------
+
+.. raw:: html
+
+   <!-- We did this in the runhelper -->
+
+Variable
+~~~~~~~~
+
+You can add variable documentation for your IDE (it works for VSCode and
+pycharm).
+
+.. code:: ipython3
+
+    precision = 10**-4
+    """precision is the precision threshold in the simulation"""
+
+
+
+
+.. parsed-literal::
+
+    'precision is the precision threshold in the simulation'
+
+
+
+This is not a python docstring. Sphinx will not be able to use it.
+
+Writing sphinx docstrings
+-------------------------
+
+We automatically generate documentation from the
+`docstrings <https://www.python.org/dev/peps/pep-0257/>`__ using sphinx
+`autodoc
+module <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html>`__.
+The `sphinx
+docstrings <https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html>`__
+format is described
+`here <https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html#the-sphinx-docstring-format>`__.
+We omit repeating the type since it can be added as variable and
+function annotations; it may be added for product documentation. Please
+refer to the section on typing for the good typing practices.
+
+**Avoid**
+
+.. code:: ipython3
+
+    # avoid napolean style
+    def function_with_types_in_docstring(param1, param2):
+        """Example function with types documented in the docstring.
+    
+        `PEP 484`_ type annotations are supported. If attribute, parameter, and
+        return types are annotated according to `PEP 484`_, they do not need to be
+        included in the docstring:
+    
+        Args:
+            param1 (int): The first parameter.
+            param2 (str): The second parameter.
+    
+        Returns:
+            bool: The return value. True for success, False otherwise.
+    
+        .. _PEP 484:
+            https://www.python.org/dev/peps/pep-0484/
+    
+        """
+        pass
+
+**Best practice**
+
+.. code:: ipython3
+
+    def function_with_docstring(param1: int, param2: str) -> bool:
+        """Example function with types documented outside the docstring.
+    
+        We omit the types (provided by typing directly in the doc)
+    
+        :param param1: The first parameter
+        :param param2: The second parameter
+        :raises ValueError: Bad first parameter
+    
+        :return: The return value. True for success, False otherwise.
+        """
+        pass

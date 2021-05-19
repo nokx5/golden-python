@@ -1,0 +1,92 @@
+Red flags
+=========
+
+Red flags are here pieces of code that can be found but should be
+avoided at any cost.
+
+1. If a utility makes more than 30 lines in python, think about how to
+   factorize it.
+
+2. Decorators are great and fun → almost never use them in production.
+
+3. Python can be slippery (3 lines could be 3 functionalities) → python
+   code should follow the single responsibility principle.
+
+4. For profiling, use the cProfile instead of the profile module because
+   of his minimal impact on the performance of the program.
+
+.. code:: ipython3
+
+    from cProfile import Profile
+    profiler = Profile()
+
+5. Argument parsing for boolean should never use the True or False word
+   in the cmdline.
+
+.. code:: ipython3
+
+    import argparse
+    parser = argparse.ArgumentParser(description='cmdline arguments')
+    
+    # Python<=3.8
+    parser.add_argument('--foo', default=False, action='store_true')
+    parser.add_argument('--no-foo', dest='foo', action='store_false')
+    
+    # # python 3.9
+    # parser.add_argument("--foo", action=argparse.BooleanOptionalAction)
+    
+    print(parser.parse_args([]))
+    print(parser.parse_args(['--no-foo']))
+    print(parser.parse_args(['--foo']))
+    print(parser.parse_args(['--foo', '--no-foo']))
+    print(parser.parse_args(['--foo', '--no-foo', '--foo']))
+
+
+.. parsed-literal::
+
+    Namespace(foo=False)
+    Namespace(foo=False)
+    Namespace(foo=True)
+    Namespace(foo=False)
+    Namespace(foo=True)
+
+
+6. Never rename modules to an other existing modules.
+
+.. code:: ipython3
+
+    import json
+    # or
+    import json5
+    
+    # don't
+    # import json5 as json
+    
+    # fine, no module called np
+    import numpy as np
+
+7. A class with one method next to the constructor should not be a
+   class.
+
+.. code:: ipython3
+
+    # avoid
+    class FrequencyList(list):
+        def __init__(self, members):
+            super().__init__(members)
+    
+        def frequency(self):
+            counts = {}
+            for item in self:
+                counts[item] = counts.get(item, 0) + 1
+            return counts
+    
+    # best practice
+    def frequency(members):
+        counts = {}
+        for item in members:
+            counts[item] = counts.get(item, 0) + 1
+        return counts
+
+8. …
+

@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Style Guide for Python Code &mdash; golden_python 0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Documentation (using Sphinx)" href="documentation_using_sphinx.html" />
+    <link rel="prev" title="Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> golden_python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Style Guide for Python Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#more-python-enhancement-proposals-peps">More Python Enhancement Proposals (PEPs)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_using_sphinx.html">Documentation (using Sphinx)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effective_python.html">Effective Python Second Edition (sample)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_antipatterns.html">Python patterns to avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing_pysheet.html">Type hints - static typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="red_flags.html">Red flags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autodoc/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">golden_python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Documentation</a> &raquo;</li>
+        
+      <li>Style Guide for Python Code</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/style_guide.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="style-guide-for-python-code">
+<h1>Style Guide for Python Code<a class="headerlink" href="#style-guide-for-python-code" title="Permalink to this headline">¶</a></h1>
+<p>There should be one — and preferably only one — obvious way to do it.</p>
+<p>Code is read much more than it is written.</p>
+<ul class="simple">
+<li><p>Use a linter – code inspector (with static typing) – such as pylint,
+flake8, mypy, prospector</p></li>
+<li><p>Use a formatter for collaborative work : black</p></li>
+<li><p>Better use those tools within a good IDE such as VSCode, PyCharm.</p></li>
+</ul>
+<p><strong>Naming conventions</strong></p>
+<p>Naming is difficult. But the following could help the readability of the
+code.</p>
+<ol class="arabic simple">
+<li><p>lowercase -&gt; python packages</p></li>
+<li><p>CapitalizedWords -&gt; Class names, Exception Names</p></li>
+<li><p>_leading_underscore -&gt; Non-public methods and instance variables</p></li>
+<li><p>__double_leading_underscore -&gt; To avoid attributes to be used by
+subclasses by invoking Python’s name mangling algorithm</p></li>
+<li><p>ALL_UPPERCASE -&gt; Global constants defined on a module level</p></li>
+</ol>
+<p><strong>Avoid</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Go</span>
+
+<span class="k">def</span> <span class="nf">someFunction</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is not the preferred PEP 8 pattern for function names&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">py_style</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Best practice</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">go</span>
+
+<span class="k">def</span> <span class="nf">some_function</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PEP 8 Style Guide prefers this CamelCase pattern&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PyStyle</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<div class="section" id="more-python-enhancement-proposals-peps">
+<h2>More Python Enhancement Proposals (PEPs)<a class="headerlink" href="#more-python-enhancement-proposals-peps" title="Permalink to this headline">¶</a></h2>
+<p>PEP8 - Style Guide for Python Code -
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a></p>
+<p>PEP484 - Type Hints - <a class="reference external" href="https://www.python.org/dev/peps/pep-0484/">https://www.python.org/dev/peps/pep-0484/</a></p>
+<p>PEP526 - Syntax for Variable Annotations -
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0526/">https://www.python.org/dev/peps/pep-0526/</a></p>
+<p>PEP 3107 - Function Annotations -
+<a class="reference external" href="https://www.python.org/dev/peps/pep-3107/">https://www.python.org/dev/peps/pep-3107/</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="documentation_using_sphinx.html" class="btn btn-neutral float-right" title="Documentation (using Sphinx)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright MIT.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

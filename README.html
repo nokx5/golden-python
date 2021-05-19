@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Welcome to the golden python template &mdash; golden_python 0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> golden_python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="about/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autodoc/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">golden_python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to the golden python template</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/README.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-the-golden-python-template">
+<h1>Welcome to the golden python template<a class="headerlink" href="#welcome-to-the-golden-python-template" title="Permalink to this headline">¶</a></h1>
+<p>This is a skeleton for a python project template (called a golden project).</p>
+<div class="section" id="development-tools">
+<h2>Development tools<a class="headerlink" href="#development-tools" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>nix ❄️ (packaging from hell ❤️)</p></li>
+<li><p>black (formatter)</p></li>
+<li><p>vscode (IDE) with</p>
+<ul>
+<li><p>ms-python.vscode-pylance</p></li>
+<li><p>ms-python.python</p></li>
+<li><p>lextudio.restructuredtext</p></li>
+</ul>
+</li>
+<li><p>pytest (tests)</p></li>
+<li><p>Sphinx (docs)</p></li>
+</ul>
+</div>
+<div class="section" id="develop-with-nix">
+<h2>Develop with Nix<a class="headerlink" href="#develop-with-nix" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-a-classic-nix-overlay">
+<h3>Use a classic Nix overlay<a class="headerlink" href="#use-a-classic-nix-overlay" title="Permalink to this headline">¶</a></h3>
+<p>Enter the nix shell with</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># deprecated</span>
+nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://nixos.org/channels/nixpkgs-unstable --pure
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-the-experimental-flake-feature">
+<h3>Use the experimental flake feature<a class="headerlink" href="#use-the-experimental-flake-feature" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>this section requires the experimental <cite>flake</cite> and <cite>nix-command</cite> features. Please refer to the official documentation for nix flakes. We highly recommand you to have a look to nix flakes since the issue of channel pinning is fixed with the <cite>flake.lock</cite> file.</p>
+</div>
+<div class="section" id="option-1-use-the-software">
+<h4>Option 1: use the software<a class="headerlink" href="#option-1-use-the-software" title="Permalink to this headline">¶</a></h4>
+<p>The package can be used easily with flakes.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden_python --command cli_golden_python
+</pre></div>
+</div>
+</div>
+<div class="section" id="option-2-build-and-develop-the-software">
+<h4>Option 2: build and develop the software<a class="headerlink" href="#option-2-build-and-develop-the-software" title="Permalink to this headline">¶</a></h4>
+<p>You can enter the shell or build the project with flakes in a very convenient way.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># option a: develop the local software</span>
+nix develop
+
+<span class="c1"># option b: build the local software</span>
+nix build .#golden_python
+unlink result
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="installation-with-pip">
+<h2>Installation with pip<a class="headerlink" href="#installation-with-pip" title="Permalink to this headline">¶</a></h2>
+<p>You can install or upgrade the project with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install golden_python --upgrade
+</pre></div>
+</div>
+<p>Or you can install from source with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python setup.py install
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<p>You may copy, distribute and modify the software provided that
+modifications are described and licensed for free under the <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a>.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright MIT.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

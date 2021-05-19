@@ -1,0 +1,65 @@
+Style Guide for Python Code
+===========================
+
+There should be one — and preferably only one — obvious way to do it.
+
+Code is read much more than it is written.
+
+-  Use a linter – code inspector (with static typing) – such as pylint,
+   flake8, mypy, prospector
+-  Use a formatter for collaborative work : black
+-  Better use those tools within a good IDE such as VSCode, PyCharm.
+
+**Naming conventions**
+
+Naming is difficult. But the following could help the readability of the
+code.
+
+1. lowercase -> python packages
+
+2. CapitalizedWords -> Class names, Exception Names
+
+3. \_leading_underscore -> Non-public methods and instance variables
+
+4. \__double_leading_underscore -> To avoid attributes to be used by
+   subclasses by invoking Python’s name mangling algorithm
+
+5. ALL_UPPERCASE -> Global constants defined on a module level
+
+**Avoid**
+
+.. code:: ipython3
+
+    import Go
+    
+    def someFunction():
+        print("Is not the preferred PEP 8 pattern for function names")
+    
+    class py_style:
+        pass
+
+**Best practice**
+
+.. code:: ipython3
+
+    import go
+    
+    def some_function():
+        print("PEP 8 Style Guide prefers this CamelCase pattern")
+    
+    class PyStyle:
+        pass
+
+More Python Enhancement Proposals (PEPs)
+----------------------------------------
+
+PEP8 - Style Guide for Python Code -
+https://www.python.org/dev/peps/pep-0008/
+
+PEP484 - Type Hints - https://www.python.org/dev/peps/pep-0484/
+
+PEP526 - Syntax for Variable Annotations -
+https://www.python.org/dev/peps/pep-0526/
+
+PEP 3107 - Function Annotations -
+https://www.python.org/dev/peps/pep-3107/
