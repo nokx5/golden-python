@@ -1,8 +1,10 @@
+.. _golden python: https://nokx5.github.io/golden_python/
 
-=====================================
-Welcome to the golden python template
-=====================================
+========================================
+Welcome to the `golden python`_ template
+========================================
 This is a skeleton for a python project template (called a golden project).
+
 
 Development tools
 =================
