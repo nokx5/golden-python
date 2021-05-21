@@ -1,9 +1,12 @@
 .. _golden python: https://nokx5.github.io/golden_python
 
+.. _welcome:
+
 ========================================
 Welcome to the `golden python`_ template
 ========================================
-This is a skeleton for a python project template (called a golden project). Please find all the documentation `here<https://nokx5.github.io/golden_cpp>`_.
+This is a skeleton for a python project template (called a golden project). 
+Please find all the documentation :ref:`here<welcome>` and the source code `here <https://github.com/nokx5/golden_python>`_.
 
 
 My development tools are
@@ -30,7 +33,7 @@ Use the software (without git clone)
 ------------------------------------
 
 
-The `nokxpkgs<https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel>`_ channel and associate overlay can be imported with the ``-I`` command or by setting the ``NIX_PATH`` environment variable.
+The `nokxpkgs <https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel>`_ channel and associate overlay can be imported with the ``-I`` command or by setting the ``NIX_PATH`` environment variable.
 
 .. code:: shell
 
@@ -40,7 +43,7 @@ The `nokxpkgs<https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel
 Develop the software
 --------------------
 
-Start by cloning the [git repository](#) locally and enter it. 
+Start by cloning the `git repository <https://github.com/nokx5/golden_python>`_ golden python locally and enter it. 
 
 Option 1: Develop the software (minimal requirements)
 .....................................................
@@ -57,8 +60,8 @@ You can develop or build the local software easily with the minimal requirements
 
 Note that you can write the nix expression directly to the ``default.nix`` file to avoid typing ``--expr`` each time.
 
-Option 2: Develop the software (supercharged :artificial_satellite:)
-....................................................................
+Option 2: Develop the software (supercharged 🛰️)
+................................................
 
 You can enter the supercharged environment for development.
 
@@ -90,13 +93,13 @@ Use the software (without git clone)
 
 .. code:: shell
 
-    nix shell github:nokx5/golden_cpp --command cli_golden
+    nix shell github:nokx5/golden_python --command cli_golden
 
 
 Develop the software
 --------------------
 
-Start by cloning the [git repository](#) locally and enter it. 
+Start by cloning the `git repository <https://github.com/nokx5/golden_python>`_ locally and enter it. 
 
 Option 1: Develop the software
 ..............................
@@ -107,10 +110,10 @@ Option 1: Develop the software
     nix run .#cli_golden
 
     # option b: build the local project
-    nix build .#golden_cpp
+    nix build .#golden_python
 
-Option 2: Develop the software (supercharged :artificial_satellite:)
-....................................................................
+Option 2: Develop the software (supercharged 🛰️)
+................................................
 
 You can enter the development supercharged environment.
 

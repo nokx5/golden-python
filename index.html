@@ -159,8 +159,9 @@
 <p>Write enjoyable documentation!</p>
 </div>
 <div class="section" id="welcome-to-the-golden-python-template">
-<h1>Welcome to the <a class="reference external" href="https://nokx5.github.io/golden_python">golden python</a> template<a class="headerlink" href="#welcome-to-the-golden-python-template" title="Permalink to this headline">¶</a></h1>
-<p>This is a skeleton for a python project template (called a golden project). Please find all the documentation <a href="#id4"><span class="problematic" id="id5">`here&lt;https://nokx5.github.io/golden_cpp&gt;`_</span></a>.</p>
+<span id="welcome"></span><h1>Welcome to the <a class="reference external" href="https://nokx5.github.io/golden_python">golden python</a> template<a class="headerlink" href="#welcome-to-the-golden-python-template" title="Permalink to this headline">¶</a></h1>
+<p>This is a skeleton for a python project template (called a golden project).
+Please find all the documentation <a class="reference internal" href="#welcome"><span class="std std-ref">here</span></a> and the source code <a class="reference external" href="https://github.com/nokx5/golden_python">here</a>.</p>
 <div class="section" id="my-development-tools-are">
 <h2>My development tools are<a class="headerlink" href="#my-development-tools-are" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -181,14 +182,14 @@
 <h2>Use the classic Nix commands<a class="headerlink" href="#use-the-classic-nix-commands" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="use-the-software-without-git-clone">
 <h3>Use the software (without git clone)<a class="headerlink" href="#use-the-software-without-git-clone" title="Permalink to this headline">¶</a></h3>
-<p>The <a href="#id6"><span class="problematic" id="id7">`nokxpkgs&lt;https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel&gt;`_</span></a> channel and associate overlay can be imported with the <code class="docutils literal notranslate"><span class="pre">-I</span></code> command or by setting the <code class="docutils literal notranslate"><span class="pre">NIX_PATH</span></code> environment variable.</p>
+<p>The <a class="reference external" href="https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel">nokxpkgs</a> channel and associate overlay can be imported with the <code class="docutils literal notranslate"><span class="pre">-I</span></code> command or by setting the <code class="docutils literal notranslate"><span class="pre">NIX_PATH</span></code> environment variable.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden_python --command cli_golden
 </pre></div>
 </div>
 </div>
 <div class="section" id="develop-the-software">
 <h3>Develop the software<a class="headerlink" href="#develop-the-software" title="Permalink to this headline">¶</a></h3>
-<p>Start by cloning the [git repository](#) locally and enter it.</p>
+<p>Start by cloning the <a class="reference external" href="https://github.com/nokx5/golden_python">git repository</a> golden python locally and enter it.</p>
 <div class="section" id="option-1-develop-the-software-minimal-requirements">
 <h4>Option 1: Develop the software (minimal requirements)<a class="headerlink" href="#option-1-develop-the-software-minimal-requirements" title="Permalink to this headline">¶</a></h4>
 <p>You can develop or build the local software easily with the minimal requirements.</p>
@@ -201,8 +202,8 @@ nix-build --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with
 </div>
 <p>Note that you can write the nix expression directly to the <code class="docutils literal notranslate"><span class="pre">default.nix</span></code> file to avoid typing <code class="docutils literal notranslate"><span class="pre">--expr</span></code> each time.</p>
 </div>
-<div class="section" id="option-2-develop-the-software-supercharged-artificial-satellite">
-<h4>Option 2: Develop the software (supercharged :artificial_satellite:)<a class="headerlink" href="#option-2-develop-the-software-supercharged-artificial-satellite" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="option-2-develop-the-software-supercharged">
+<h4>Option 2: Develop the software (supercharged 🛰️)<a class="headerlink" href="#option-2-develop-the-software-supercharged" title="Permalink to this headline">¶</a></h4>
 <p>You can enter the supercharged environment for development.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell derivation-shell.nix
 </pre></div>
@@ -227,25 +228,25 @@ nix-build --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with
 </div>
 <div class="section" id="id1">
 <h3>Use the software (without git clone)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden_cpp --command cli_golden
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden_python --command cli_golden
 </pre></div>
 </div>
 </div>
 <div class="section" id="id2">
 <h3>Develop the software<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Start by cloning the [git repository](#) locally and enter it.</p>
+<p>Start by cloning the <a class="reference external" href="https://github.com/nokx5/golden_python">git repository</a> locally and enter it.</p>
 <div class="section" id="option-1-develop-the-software">
 <h4>Option 1: Develop the software<a class="headerlink" href="#option-1-develop-the-software" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># option a: develop with a local shell</span>
 nix run .#cli_golden
 
 <span class="c1"># option b: build the local project</span>
-nix build .#golden_cpp
+nix build .#golden_python
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h4>Option 2: Develop the software (supercharged :artificial_satellite:)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id4">
+<h4>Option 2: Develop the software (supercharged 🛰️)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <p>You can enter the development supercharged environment.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix develop
 </pre></div>
