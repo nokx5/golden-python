@@ -14,10 +14,10 @@
             inherit (pkgs-super.lib) composeExtensions;
             pythonPackageOverrides = python-self: python-super: {
               project_app =
-                python-self.callPackage ./project_app.nix { src = self; };
+                python-self.callPackage ./derivation_app.nix { src = self; };
               project_pkg =
-                python-self.callPackage ./project_pkg.nix { src = self; };
-              project_dev = python-self.callPackage ./project_dev_shell.nix { };
+                python-self.callPackage ./derivation.nix { src = self; };
+              project_dev = python-self.callPackage ./derivation_shell.nix { };
             };
           in {
             python37 = pkgs-super.python37.override (old: {
