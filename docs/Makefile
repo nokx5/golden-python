@@ -23,8 +23,7 @@ help:
 import-all:
 	mkdir -p $(SOURCEDIR) $(TARGETDIR)
 	# cp problem when overriding source in nix. Exclude few files.
-	bash -O extglob -O dotglob -c "cp -rp $(ROOTDIR)/docs/content/!(examples|README.rst) $(SOURCEDIR)"
-	cp -p $(ROOTDIR)/README.rst $(SOURCEDIR)/README.rst
+	bash -O extglob -O dotglob -c "cp -rp $(ROOTDIR)/docs/content/!(examples) $(SOURCEDIR)"
 	mkdir -p $(SOURCEDIR)/examples
 	cp -p $(ROOTDIR)/examples/index.rst $(SOURCEDIR)/examples/index.rst
 	# import data, files, notebook
