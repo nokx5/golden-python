@@ -159,10 +159,10 @@
 <p>Write enjoyable documentation!</p>
 </div>
 <div class="section" id="welcome-to-the-golden-python-template">
-<h1>Welcome to the <a class="reference external" href="https://nokx5.github.io/golden_python/">golden python</a> template<a class="headerlink" href="#welcome-to-the-golden-python-template" title="Permalink to this headline">¶</a></h1>
-<p>This is a skeleton for a python project template (called a golden project).</p>
-<div class="section" id="development-tools">
-<h2>Development tools<a class="headerlink" href="#development-tools" title="Permalink to this headline">¶</a></h2>
+<h1>Welcome to the <a class="reference external" href="https://nokx5.github.io/golden_python">golden python</a> template<a class="headerlink" href="#welcome-to-the-golden-python-template" title="Permalink to this headline">¶</a></h1>
+<p>This is a skeleton for a python project template (called a golden project). Please find all the documentation <a href="#id4"><span class="problematic" id="id5">`here&lt;https://nokx5.github.io/golden_cpp&gt;`_</span></a>.</p>
+<div class="section" id="my-development-tools-are">
+<h2>My development tools are<a class="headerlink" href="#my-development-tools-are" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>nix ❄️ (packaging from hell ❤️)</p></li>
 <li><p>black (formatter)</p></li>
@@ -177,38 +177,77 @@
 <li><p>Sphinx (docs)</p></li>
 </ul>
 </div>
-<div class="section" id="develop-with-nix">
-<h2>Develop with Nix<a class="headerlink" href="#develop-with-nix" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="use-a-classic-nix-overlay">
-<h3>Use a classic Nix overlay<a class="headerlink" href="#use-a-classic-nix-overlay" title="Permalink to this headline">¶</a></h3>
-<p>Enter the nix shell with</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># deprecated</span>
-nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://nixos.org/channels/nixpkgs-unstable --pure
+<div class="section" id="use-the-classic-nix-commands">
+<h2>Use the classic Nix commands<a class="headerlink" href="#use-the-classic-nix-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-the-software-without-git-clone">
+<h3>Use the software (without git clone)<a class="headerlink" href="#use-the-software-without-git-clone" title="Permalink to this headline">¶</a></h3>
+<p>The <a href="#id6"><span class="problematic" id="id7">`nokxpkgs&lt;https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel&gt;`_</span></a> channel and associate overlay can be imported with the <code class="docutils literal notranslate"><span class="pre">-I</span></code> command or by setting the <code class="docutils literal notranslate"><span class="pre">NIX_PATH</span></code> environment variable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden_python --command cli_golden
 </pre></div>
+</div>
+</div>
+<div class="section" id="develop-the-software">
+<h3>Develop the software<a class="headerlink" href="#develop-the-software" title="Permalink to this headline">¶</a></h3>
+<p>Start by cloning the [git repository](#) locally and enter it.</p>
+<div class="section" id="option-1-develop-the-software-minimal-requirements">
+<h4>Option 1: Develop the software (minimal requirements)<a class="headerlink" href="#option-1-develop-the-software-minimal-requirements" title="Permalink to this headline">¶</a></h4>
+<p>You can develop or build the local software easily with the minimal requirements.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># option a: develop with a local shell</span>
+nix-shell --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with pkgs; callPackage ./derivation.nix {src = ./.; }&#39;</span>
+
+<span class="c1"># option b: build the local project</span>
+nix-build --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with pkgs; callPackage ./derivation.nix {src = ./.; }&#39;</span>
+</pre></div>
+</div>
+<p>Note that you can write the nix expression directly to the <code class="docutils literal notranslate"><span class="pre">default.nix</span></code> file to avoid typing <code class="docutils literal notranslate"><span class="pre">--expr</span></code> each time.</p>
+</div>
+<div class="section" id="option-2-develop-the-software-supercharged-artificial-satellite">
+<h4>Option 2: Develop the software (supercharged :artificial_satellite:)<a class="headerlink" href="#option-2-develop-the-software-supercharged-artificial-satellite" title="Permalink to this headline">¶</a></h4>
+<p>You can enter the supercharged environment for development.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell derivation-shell.nix
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="use-the-experimental-flake-feature">
-<h3>Use the experimental flake feature<a class="headerlink" href="#use-the-experimental-flake-feature" title="Permalink to this headline">¶</a></h3>
+<h2>Use the experimental flake feature<a class="headerlink" href="#use-the-experimental-flake-feature" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>this section requires the experimental <cite>flake</cite> and <cite>nix-command</cite> features. Please refer to the official documentation for nix flakes. We highly recommand you to have a look to nix flakes since the issue of channel pinning is fixed with the <cite>flake.lock</cite> file.</p>
+<p><strong>NOTE:</strong> This section requires the experimental <em>flake</em> and <em>nix-command</em> features. Please refer to the official documentation for nix flakes. The advantage of using nix flakes is that you avoid channel pinning issues.</p>
 </div>
-<div class="section" id="option-1-use-the-software">
-<h4>Option 1: use the software<a class="headerlink" href="#option-1-use-the-software" title="Permalink to this headline">¶</a></h4>
-<p>The package can be used easily with flakes.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden_python --command cli_golden_python
+<p>After Nix was installed, update to the unstable feature with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-env -f <span class="s1">&#39;&lt;nixpkgs&gt;&#39;</span> -iA nixUnstable
+</pre></div>
+</div>
+<p>And enable experimental features with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir -p ~/.config/nix
+<span class="nb">echo</span> <span class="s1">&#39;experimental-features = nix-command flakes&#39;</span> &gt;&gt; ~/.config/nix/nix.conf
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h3>Use the software (without git clone)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden_cpp --command cli_golden
 </pre></div>
 </div>
 </div>
-<div class="section" id="option-2-build-and-develop-the-software">
-<h4>Option 2: build and develop the software<a class="headerlink" href="#option-2-build-and-develop-the-software" title="Permalink to this headline">¶</a></h4>
-<p>You can enter the shell or build the project with flakes in a very convenient way.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># option a: develop the local software</span>
-nix develop
+<div class="section" id="id2">
+<h3>Develop the software<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Start by cloning the [git repository](#) locally and enter it.</p>
+<div class="section" id="option-1-develop-the-software">
+<h4>Option 1: Develop the software<a class="headerlink" href="#option-1-develop-the-software" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># option a: develop with a local shell</span>
+nix run .#cli_golden
 
-<span class="c1"># option b: build the local software</span>
-nix build .#golden_python
-unlink result
+<span class="c1"># option b: build the local project</span>
+nix build .#golden_cpp
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h4>Option 2: Develop the software (supercharged :artificial_satellite:)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>You can enter the development supercharged environment.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix develop
 </pre></div>
 </div>
 </div>
