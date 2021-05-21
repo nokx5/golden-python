@@ -12,10 +12,4 @@ buildPythonPackage rec {
 
   checkInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "tests" "-vv" ];
-  # outputs = [ "bin" "dev" "doc" "out" ];
-  # preInstall = ''
-  #   mkdir -p $outputDoc
-  #   mkdir -p $outputDoc/share/doc/dflkfld
-  #   touch $outputDoc/share/doc/dflkfld/helloworld
-  # '';
 }

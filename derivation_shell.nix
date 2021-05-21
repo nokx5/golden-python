@@ -1,4 +1,11 @@
-{ pkgs }:
+{ pkgs ? import <nixpkgs> {}, # the two lines are for usual and flakes nix compatibility
+project_pkg ? with pkgs; with python3Packages; pkgs.callPackage ./derivation.nix {
+  src = ./.;
+}, project_app ? with pkgs; callPackage ./derivation_app.nix {
+   pythonPackages = python3Packages;
+   src = ./.;
+} }:
+
 let
   pythonPackages = pkgs.python3Packages;
   vscodeExt = (with pkgs;
@@ -20,12 +27,6 @@ let
           publisher = "lextudio";
           version = "135.0.0";
           sha256 = "yjPS9fZ628bfU34DsiUmZkOleRzW6EWY8DUjIU4wp9w=";
-        }
-        {
-          name = "snooty";
-          publisher = "snooty";
-          version = "0.9.2";
-          sha256 = "E6GBMdn6uNH8mQq6RwDJcm9JGrnDPrbu6hPQhR333rE=";
         }
         ];
     });
