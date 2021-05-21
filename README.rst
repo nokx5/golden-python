@@ -1,13 +1,13 @@
-.. _golden python: https://nokx5.github.io/golden_python/
+.. _golden python: https://nokx5.github.io/golden_python
 
 ========================================
 Welcome to the `golden python`_ template
 ========================================
-This is a skeleton for a python project template (called a golden project).
+This is a skeleton for a python project template (called a golden project). Please find all the documentation `here<https://nokx5.github.io/golden_cpp>`_.
 
 
-Development tools
-=================
+My development tools are
+========================
 
 - nix ❄️ (packaging from hell ❤️)
 
@@ -23,48 +23,100 @@ Development tools
 
 - Sphinx (docs)
 
-Develop with Nix
-================
+Use the classic Nix commands
+============================
 
-Use a classic Nix overlay
--------------------------
+Use the software (without git clone)
+------------------------------------
 
-Enter the nix shell with
+
+The `nokxpkgs<https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel>`_ channel and associate overlay can be imported with the ``-I`` command or by setting the ``NIX_PATH`` environment variable.
 
 .. code:: shell
 
-    # deprecated
-    nix-shell -I nixpkgs=https://nixos.org/channels/nixpkgs-unstable --pure 
+    nix-shell -I nixpkgs=https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden_python --command cli_golden
+
+
+Develop the software
+--------------------
+
+Start by cloning the [git repository](#) locally and enter it. 
+
+Option 1: Develop the software (minimal requirements)
+.....................................................
+
+You can develop or build the local software easily with the minimal requirements.
+
+.. code:: shell
+
+    # option a: develop with a local shell
+    nix-shell --expr '{pkgs ? import <nixpkgs> {} }: with pkgs; callPackage ./derivation.nix {src = ./.; }'
+    
+    # option b: build the local project
+    nix-build --expr '{pkgs ? import <nixpkgs> {} }: with pkgs; callPackage ./derivation.nix {src = ./.; }'
+
+Note that you can write the nix expression directly to the ``default.nix`` file to avoid typing ``--expr`` each time.
+
+Option 2: Develop the software (supercharged :artificial_satellite:)
+....................................................................
+
+You can enter the supercharged environment for development.
+
+.. code:: shell
+
+    nix-shell derivation-shell.nix
 
 
 Use the experimental flake feature
-----------------------------------
+==================================
 
-.. warning:: this section requires the experimental `flake` and `nix-command` features. Please refer to the official documentation for nix flakes. We highly recommand you to have a look to nix flakes since the issue of channel pinning is fixed with the `flake.lock` file.
+.. warning:: **NOTE:** This section requires the experimental *flake* and *nix-command* features. Please refer to the official documentation for nix flakes. The advantage of using nix flakes is that you avoid channel pinning issues.
 
-Option 1: use the software
-..........................
-
-The package can be used easily with flakes.
+After Nix was installed, update to the unstable feature with:
 
 .. code:: shell
 
-    nix shell github:nokx5/golden_python --command cli_golden_python
+    nix-env -f '<nixpkgs>' -iA nixUnstable
 
-Option 2: build and develop the software
-........................................
-
-You can enter the shell or build the project with flakes in a very convenient way.
-
+And enable experimental features with:
 
 .. code:: shell
 
-    # option a: develop the local software
+    mkdir -p ~/.config/nix
+    echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+
+Use the software (without git clone)
+------------------------------------
+
+.. code:: shell
+
+    nix shell github:nokx5/golden_cpp --command cli_golden
+
+
+Develop the software
+--------------------
+
+Start by cloning the [git repository](#) locally and enter it. 
+
+Option 1: Develop the software
+..............................
+
+.. code:: shell
+
+    # option a: develop with a local shell
+    nix run .#cli_golden
+
+    # option b: build the local project
+    nix build .#golden_cpp
+
+Option 2: Develop the software (supercharged :artificial_satellite:)
+....................................................................
+
+You can enter the development supercharged environment.
+
+.. code:: shell
+
     nix develop
-
-    # option b: build the local software
-    nix build .#golden_python
-    unlink result
 
 
 Installation with pip
