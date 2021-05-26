@@ -17,7 +17,7 @@
                 python-self.callPackage ./derivation_app.nix { src = self; };
               project_pkg =
                 python-self.callPackage ./derivation.nix { src = self; };
-              project_dev = python-self.callPackage ./derivation_shell.nix { };
+              project_dev = python-self.callPackage ./derivation-shell.nix { };
             };
           in {
             python37 = pkgs-super.python37.override (old: {
