@@ -4,7 +4,7 @@
 Welcome to the `golden python`_ template
 ========================================
 This is a skeleton for a python project template (called a golden project). 
-Please find all the documentation `here <https://nokx5.github.io/golden_python>`_ and the source code `here <https://github.com/nokx5/golden_python>`_.
+Please find all the documentation `here <https://nokx5.github.io/golden_python>`_ and the source code `there <https://github.com/nokx5/golden_python>`_.
 
 My development tools are
 ========================
