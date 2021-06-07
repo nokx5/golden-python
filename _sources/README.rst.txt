@@ -50,10 +50,10 @@ You can develop or build the local software easily with the minimal requirements
 .. code:: shell
 
     # option a: develop with a local shell
-    nix-shell --expr '{pkgs ? import <nixpkgs> {} }: with pkgs; callPackage ./derivation.nix {src = ./.; }'
+    nix-shell --expr '{pkgs ? import <nixpkgs> {} }: with pkgs; with python3Packages; callPackage ./derivation.nix {src = ./.; }'
     
     # option b: build the local project
-    nix-build --expr '{pkgs ? import <nixpkgs> {} }: with pkgs; callPackage ./derivation.nix {src = ./.; }'
+    nix-build --expr '{pkgs ? import <nixpkgs> {} }: with pkgs; with python3Packages; callPackage ./derivation.nix {src = ./.; }'
 
 Note that you can write the nix expression directly to the ``default.nix`` file to avoid typing ``--expr`` each time.
 
@@ -104,13 +104,10 @@ Option 1: Develop the software
 .. code:: shell
 
     # option a: develop with a local shell
-    nix develop .#golden-python # same as .
+    nix develop .#golden-python
 
     # option b: build the local project
     nix build .#golden-python
-
-    # option c: run the command line
-    nix run .#cli-golden-python # same as .
 
 Option 2: Develop the software (supercharged 🛰️)
 ................................................
@@ -119,7 +116,7 @@ You can enter the development supercharged environment.
 
 .. code:: shell
 
-    nix develop .#shell
+    nix develop .#fullDev
 
 
 Installation with pip
