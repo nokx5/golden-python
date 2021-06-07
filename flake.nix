@@ -13,11 +13,11 @@
           let
             inherit (pkgs-super.lib) composeExtensions;
             pythonPackageOverrides = python-self: python-super: {
-              project_app =
-                python-self.callPackage ./derivation_app.nix { src = self; };
-              project_pkg =
+              golden-python-app =
+                python-self.callPackage ./derivation-app.nix { src = self; };
+              golden-python =
                 python-self.callPackage ./derivation.nix { src = self; };
-              project_dev = python-self.callPackage ./derivation-shell.nix { };
+              shell = python-self.callPackage ./shell.nix { };
             };
           in {
             python37 = pkgs-super.python37.override (old: {
@@ -45,21 +45,19 @@
         };
       in {
         packages = {
-          golden-python_app = pkgs.python3Packages.project_app;
-          golden-python_pkg = pkgs.python3Packages.project_pkg;
+          inherit (pkgs.python3Packages) golden-python golden-python-app shell;
         };
-        defaultPackage = self.packages.${system}.golden-python_app;
+        defaultPackage = self.packages.${system}.golden-python-app;
 
         apps = {
-          app-golden-python = {
+          cli-golden-python = {
             type = "app";
-            program =
-              "${self.defaultPackage.${system}}/bin/cli-golden-python.py";
+            program = "${self.defaultPackage.${system}}/bin/golden-python";
           };
         };
 
-        defaultApp = self.apps.${system}.app-golden-python;
+        defaultApp = self.apps.${system}.cli-golden-python;
 
-        devShell = pkgs.python3Packages.project_dev;
+        devShell = self.packages.${system}.golden-python-app;
       });
 }

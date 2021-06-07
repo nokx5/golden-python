@@ -1,4 +1,4 @@
-{ python3Packages, src, nbconvert, pandoc }:
+{ python3Packages, src }: # nbconvert, pandoc
 with python3Packages;
 buildPythonApplication rec {
   pname = "cli-golden-python";
@@ -6,7 +6,7 @@ buildPythonApplication rec {
   inherit src;
 
   buildInputs = [ ];
-  nativeBuildInputs = [ pandoc nbconvert ] ++ [ sphinx sphinx_rtd_theme ];
+  nativeBuildInputs = [ sphinx sphinx_rtd_theme ]; # [ pandoc nbconvert ]
   propagatedBuildInputs = [ decorator jinja2 ];
   propagatedNativeBuildInputs = [ ];
 
