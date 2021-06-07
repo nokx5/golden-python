@@ -1,7 +1,7 @@
 { python3Packages, src, nbconvert, pandoc }:
 with python3Packages;
 buildPythonApplication rec {
-  pname = "cli_golden_python";
+  pname = "cli-golden-python";
   version = "0.0";
   inherit src;
 

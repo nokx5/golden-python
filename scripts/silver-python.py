@@ -12,4 +12,4 @@ parser.add_argument("--no-foo", dest="foo", action="store_false")
 
 args = parser.parse_args([])
 
-print(f"Golden Python: Hello {args.name}")
+print(f"Silver Python: Hello {args.name}")

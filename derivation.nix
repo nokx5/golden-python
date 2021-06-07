@@ -1,7 +1,7 @@
 { buildPythonPackage, src, decorator, jinja2, pyjson5, pytestCheckHook, toml }:
 
 buildPythonPackage rec {
-  pname = "golden_python";
+  pname = "golden-python";
   version = "0.0";
   inherit src;
 

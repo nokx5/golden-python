@@ -45,20 +45,20 @@
         };
       in {
         packages = {
-          golden_python_app = pkgs.python3Packages.project_app;
-          golden_python_pkg = pkgs.python3Packages.project_pkg;
+          golden-python_app = pkgs.python3Packages.project_app;
+          golden-python_pkg = pkgs.python3Packages.project_pkg;
         };
-        defaultPackage = self.packages.${system}.golden_python_app;
+        defaultPackage = self.packages.${system}.golden-python_app;
 
         apps = {
-          cli_golden = {
+          cli-golden-python = {
             type = "app";
             program =
-              "${self.defaultPackage.${system}}/bin/cli_golden_python.py";
+              "${self.defaultPackage.${system}}/bin/cli-golden-python.py";
           };
         };
 
-        defaultApp = self.apps.${system}.cli_golden;
+        defaultApp = self.apps.${system}.cli-golden;
 
         devShell = pkgs.python3Packages.project_dev;
       });
