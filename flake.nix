@@ -51,14 +51,14 @@
         defaultPackage = self.packages.${system}.golden-python_app;
 
         apps = {
-          cli-golden-python = {
+          app-golden-python = {
             type = "app";
             program =
               "${self.defaultPackage.${system}}/bin/cli-golden-python.py";
           };
         };
 
-        defaultApp = self.apps.${system}.cli-golden;
+        defaultApp = self.apps.${system}.app-golden-python;
 
         devShell = pkgs.python3Packages.project_dev;
       });
