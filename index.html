@@ -205,7 +205,7 @@ nix-build --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with
 <div class="section" id="option-2-develop-the-software-supercharged">
 <h4>Option 2: Develop the software (supercharged 🛰️)<a class="headerlink" href="#option-2-develop-the-software-supercharged" title="Permalink to this headline">¶</a></h4>
 <p>You can enter the supercharged environment for development.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell derivation-shell.nix
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell shell.nix
 </pre></div>
 </div>
 </div>
@@ -238,17 +238,20 @@ nix-build --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with
 <div class="section" id="option-1-develop-the-software">
 <h4>Option 1: Develop the software<a class="headerlink" href="#option-1-develop-the-software" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># option a: develop with a local shell</span>
-nix run .#app-golden-python
+nix develop .#golden-python <span class="c1"># same as .</span>
 
 <span class="c1"># option b: build the local project</span>
 nix build .#golden-python
+
+<span class="c1"># option c: run the command line</span>
+nix run .#cli-golden-python <span class="c1"># same as .</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id4">
 <h4>Option 2: Develop the software (supercharged 🛰️)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <p>You can enter the development supercharged environment.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix develop
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix develop .#shell
 </pre></div>
 </div>
 </div>
