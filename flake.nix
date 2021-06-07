@@ -17,7 +17,7 @@
                 python-self.callPackage ./derivation-app.nix { src = self; };
               golden-python =
                 python-self.callPackage ./derivation.nix { src = self; };
-              shell = python-self.callPackage ./shell.nix { };
+              fullDev = python-self.callPackage ./shell.nix { };
             };
           in {
             python37 = pkgs-super.python37.override (old: {
@@ -40,12 +40,13 @@
 
         pkgs = import nixpkgs {
           inherit system;
-          config = { allowUnfree = true; };
+          config.allowUnfree = true;
           overlays = [ overlay ];
         };
       in {
         packages = {
-          inherit (pkgs.python3Packages) golden-python golden-python-app shell;
+          inherit (pkgs.python3Packages)
+            fullDev golden-python golden-python-app;
         };
         defaultPackage = self.packages.${system}.golden-python-app;
 
