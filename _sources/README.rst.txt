@@ -1,10 +1,10 @@
-.. _golden python: https://nokx5.github.io/golden_python
+.. _golden python: https://nokx5.github.io/golden-python
 
 ========================================
 Welcome to the `golden python`_ template
 ========================================
 This is a skeleton for a python project template (called a golden project). 
-Please find all the documentation `here <https://nokx5.github.io/golden_python>`_ and the source code `there <https://github.com/nokx5/golden_python>`_.
+Please find all the documentation `here <https://nokx5.github.io/golden-python>`_ and the source code `there <https://github.com/nokx5/golden-python>`_.
 
 My development tools are
 ========================
@@ -34,13 +34,13 @@ The `nokxpkgs <https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channe
 
 .. code:: shell
 
-    nix-shell -I nixpkgs=https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden_python --command cli_golden
+    nix-shell -I nixpkgs=https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden-python --command cli_golden
 
 
 Develop the software
 --------------------
 
-Start by cloning the `git repository <https://github.com/nokx5/golden_python>`_ golden python locally and enter it. 
+Start by cloning the `git repository <https://github.com/nokx5/golden-python>`_ golden python locally and enter it. 
 
 Option 1: Develop the software (minimal requirements)
 .....................................................
@@ -90,13 +90,13 @@ Use the software (without git clone)
 
 .. code:: shell
 
-    nix shell github:nokx5/golden_python --command cli_golden
+    nix shell github:nokx5/golden-python --command cli_golden
 
 
 Develop the software
 --------------------
 
-Start by cloning the `git repository <https://github.com/nokx5/golden_python>`_ locally and enter it. 
+Start by cloning the `git repository <https://github.com/nokx5/golden-python>`_ locally and enter it. 
 
 Option 1: Develop the software
 ..............................
@@ -107,7 +107,7 @@ Option 1: Develop the software
     nix run .#cli_golden
 
     # option b: build the local project
-    nix build .#golden_python
+    nix build .#golden-python
 
 Option 2: Develop the software (supercharged 🛰️)
 ................................................
@@ -126,7 +126,7 @@ You can install or upgrade the project with:
 
 .. code:: shell
 
-    pip install golden_python --upgrade
+    pip install golden-python --upgrade
 
 Or you can install from source with:
 
