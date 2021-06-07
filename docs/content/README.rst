@@ -64,7 +64,7 @@ You can enter the supercharged environment for development.
 
 .. code:: shell
 
-    nix-shell derivation-shell.nix
+    nix-shell shell.nix
 
 
 Use the experimental flake feature
@@ -104,10 +104,13 @@ Option 1: Develop the software
 .. code:: shell
 
     # option a: develop with a local shell
-    nix run .#app-golden-python
+    nix develop .#golden-python # same as .
 
     # option b: build the local project
     nix build .#golden-python
+
+    # option c: run the command line
+    nix run .#cli-golden-python # same as .
 
 Option 2: Develop the software (supercharged 🛰️)
 ................................................
@@ -116,7 +119,7 @@ You can enter the development supercharged environment.
 
 .. code:: shell
 
-    nix develop
+    nix develop .#shell
 
 
 Installation with pip
