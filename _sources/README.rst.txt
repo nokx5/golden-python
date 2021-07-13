@@ -105,19 +105,24 @@ Option 1: Develop the software
 
     # option a: develop with a local shell
     nix develop .#golden-python
+    # or
+    nix-shell . -A packages.x86_64-linux.golden-python
 
     # option b: build the local project
     nix build .#golden-python
+    # or
+    nix-build . -A packages.x86_64-linux.golden-python
 
 Option 2: Develop the software (supercharged 🛰️)
 ................................................
 
-You can enter the development supercharged environment.
+You can enter the supercharged development environment.
 
 .. code:: shell
 
     nix develop
-
+    # or
+    nix-shell . -A devShell.x86_64-linux
 
 Installation with pip
 =====================
