@@ -23,7 +23,7 @@
       );
 
       repoName = "golden-python";
-      repoVersion = nixpkgsFor.x86_64-linux.golden-python.version;
+      repoVersion = nixpkgsFor.x86_64-linux.golden-python-app.version;
       repoDescription = "golden-python - A simple Python flake";
     in
     {
@@ -61,7 +61,79 @@
         let pkgs = nixpkgsFor.${system}; in pkgs.callPackage ./shell.nix { }
       );
 
-      hydraJobs = { };
+      hydraJobs = {
+
+        build = forDevSystems (system: nixpkgsFor.${system}.python3Packages.golden-python);
+        build-app = forDevSystems (system: nixpkgsFor.${system}.golden-python-app);
+
+        docker = forDevSystems (system:
+          with nixpkgsFor.${system}; dockerTools.buildLayeredImage {
+            name = "${repoName}-docker-${repoVersion}";
+            tag = "latest";
+            created = "now";
+            contents = [ golden-python-app ];
+            config = {
+              Cmd = [ "cli_golden" ];
+              # Env = [ "CMDLINE=ENABLED" ];
+              # ExposedPorts = { "8000" = { }; };
+            };
+          });
+
+        # deb = forCustomSystems ["x86_64-linux"] (system: 
+        #   with nixpkgsFor.x86_64-linux; releaseTools.debBuild {
+        #   inherit stdenv;
+        #   name = "${repoName}-debian";
+        #   diskImage = vmTools.diskImageFuns.debian8x86_64 {};
+        #   src = golden-cpp.src;
+        #   # buildInputs = [];
+        # });
+
+        # rpm = forCustomSystems ["x86_64-linux"] (system: 
+        #   with nixpkgsFor.x86_64-linux; releaseTools.rpmBuild {
+        #   name = "${repoName}-redhat";
+        #   diskImage = vmTools.diskImageFuns.centos7x86_64 {};
+        #   src = golden-cpp.src;
+        #   # buildInputs = [];
+        # });
+
+        # tarball =
+        #   nixpkgsFor.${system}.releaseTools.sourceTarball {
+        #     name = "${repoName} - tarball";
+        #     src = autoconf missing;
+        #   };
+
+        # clang-analysis =
+        #   nixpkgsFor.${system}.releaseTools.clangAnalysis {
+        #     name = "${repoName}-clang-analysis";
+        #     src = self;
+        #   };
+
+        # coverage =
+        #   nixpkgsFor.${system}.releaseTools.coverageAnalysis {
+        #     name = "${repoName}-coverage";
+        #     src = self.hydraJobs.tarball;
+        #     #lcovFilter = [ "*/tests/*" ];
+        #   };
+
+        release = forDevSystems (system:
+          with nixpkgsFor.${system}; releaseTools.aggregate
+            {
+              name = "${repoName}-release-${repoVersion}";
+              constituents =
+                [
+                  self.hydraJobs.build.${system}
+                  self.hydraJobs.build-app.${system}
+                  #self.hydraJobs.docker.${system}
+                ] ++ lib.optionals (hostPlatform.isLinux) [
+                  #self.hydraJobs.deb.x86_64-linux
+                  #self.hydraJobs.rpm.x86_64-linux
+                  #self.hydraJobs.coverage.x86_64-linux
+                ];
+              meta.description = "hydraJobs: ${repoDescription}";
+            });
+
+
+       };
       packages = forAllSystems (system:
         with nixpkgsFor.${system}; {
           inherit (python3Packages) golden-python golden-python-app;
