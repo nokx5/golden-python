@@ -133,7 +133,7 @@
             });
 
 
-       };
+      };
       packages = forAllSystems (system:
         with nixpkgsFor.${system}; {
           inherit (python3Packages) golden-python golden-python-app;
@@ -143,14 +143,14 @@
         self.packages.${system}.golden-python-app);
 
       apps = forAllSystems (system: {
-        golden-python = {
+        golden-python-app = {
           type = "app";
           program = "${self.packages.${system}.golden-python-app}/bin/cli_golden";
         };
       }
       );
 
-      defaultApp = forAllSystems (system: self.apps.${system}.golden-python);
+      defaultApp = forAllSystems (system: self.apps.${system}.golden-python-app);
 
       templates = {
         golden-python = {
