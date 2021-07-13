@@ -116,7 +116,7 @@ You can enter the development supercharged environment.
 
 .. code:: shell
 
-    nix develop .#fullDev
+    nix develop
 
 
 Installation with pip
