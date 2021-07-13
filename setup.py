@@ -39,6 +39,11 @@ with codecs.open("README.rst", "r", "utf-8") as fd:
         description="Golden project in pure python",
         long_description=fd.read(),
         scripts=["scripts/silver-python.py"],
+        entry_points={
+            "console_scripts": [
+                "cli_golden = golden.__main__:cli_entrypoint",
+            ],
+        },
         packages=packages,
         package_data={"golden": ["py.typed"]},
         install_requires=requirements,
