@@ -1,0 +1,29 @@
+name: "CI"
+on:
+  pull_request:
+  push:
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout (clean environment)
+      uses: actions/checkout@v2.3.4
+    - name: Use Cachix (Never build software more than once)
+      uses: cachix/install-nix-action@v12
+      with: 
+        name: nokx5-golden-cpp
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build Linux Release (run tests)
+      run: nix-build . -A hydraJobs.release.x86_64-linux --show-trace
+  macos:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout (clean environment)
+        uses: actions/checkout@v2.3.4
+      - name: Use Cachix (Never build software more than once)
+        uses: cachix/install-nix-action@v12
+        with:
+          name: nokx5-golden-cpp
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - name: Build MacOS Release (run tests)
+        run: nix-build . -A hydraJobs.release.x86_64-darwin --show-trace
