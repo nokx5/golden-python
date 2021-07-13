@@ -271,6 +271,18 @@ nix-shell . -A devShell.x86_64-linux
 </div>
 </section>
 </section>
+<section id="code-snippets">
+<h1>Code Snippets<a class="headerlink" href="#code-snippets" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>black .
+
+nixpkgs-fmt .
+
+pip list --format<span class="o">=</span>freeze &gt; requirements.txt
+
+python -m pytest -k <span class="s2">&quot;not bronze&quot;</span>
+</pre></div>
+</div>
+</section>
 <section id="license">
 <h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
 <p>You may copy, distribute and modify the software provided that

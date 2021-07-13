@@ -139,6 +139,20 @@ Or you can install from source with:
 
     python setup.py install
 
+=============
+Code Snippets
+=============
+
+.. code:: shell
+
+    black .
+
+    nixpkgs-fmt .
+
+    pip list --format=freeze > requirements.txt
+
+    python -m pytest -k "not bronze"
+
 =======
 License
 =======
