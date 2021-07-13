@@ -1,12 +1,11 @@
-name: "Tests"
+name: "NIX"
 
 on:
   pull_request:
   push:
 
 jobs:
-  tests:
-    name: Check with nix build
+  flake-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (clean environment)
