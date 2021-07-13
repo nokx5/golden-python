@@ -187,7 +187,7 @@ Please find all the documentation <a class="reference external" href="https://no
 <section id="use-the-software-without-git-clone">
 <h3>Use the software (without git clone)<a class="headerlink" href="#use-the-software-without-git-clone" title="Permalink to this headline">¶</a></h3>
 <p>The <a class="reference external" href="https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channel">nokxpkgs</a> channel and associate overlay can be imported with the <code class="docutils literal notranslate"><span class="pre">-I</span></code> command or by setting the <code class="docutils literal notranslate"><span class="pre">NIX_PATH</span></code> environment variable.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden-python --command golden-python
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden-python --command cli_golden
 </pre></div>
 </div>
 </section>
@@ -232,7 +232,7 @@ nix-build --expr <span class="s1">&#39;{pkgs ? import &lt;nixpkgs&gt; {} }: with
 </div>
 <section id="id1">
 <h3>Use the software (without git clone)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden-python --command golden-python
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nix shell github:nokx5/golden-python --command cli_golden
 </pre></div>
 </div>
 </section>

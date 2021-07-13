@@ -34,7 +34,7 @@ The `nokxpkgs <https://github.com/nokx5/nokxpkgs#add-nokxpkgs-to-your-nix-channe
 
 .. code:: shell
 
-    nix-shell -I nixpkgs=https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden-python --command golden-python
+    nix-shell -I nixpkgs=https://github.com/nokx5/nokxpkgs/archive/main.tar.gz -p golden-python --command cli_golden
 
 
 Develop the software
@@ -90,7 +90,7 @@ Use the software (without git clone)
 
 .. code:: shell
 
-    nix shell github:nokx5/golden-python --command golden-python
+    nix shell github:nokx5/golden-python --command cli_golden
 
 
 Develop the software
