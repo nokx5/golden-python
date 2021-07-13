@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Effective Python Second Edition (sample) &mdash; golden-python 0.0 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -201,11 +205,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="effective-python-second-edition-sample">
+  <section id="effective-python-second-edition-sample">
 <h1><a class="reference external" href="https://effectivepython.com/">Effective Python Second Edition</a> (sample)<a class="headerlink" href="#effective-python-second-edition-sample" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-1-pythonic-thinking">
+<section id="chapter-1-pythonic-thinking">
 <h2>Chapter 1 Pythonic Thinking<a class="headerlink" href="#chapter-1-pythonic-thinking" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="item-4-prefer-interpolated-f-strings-over-c-style-format-strings-and-str-format">
+<section id="item-4-prefer-interpolated-f-strings-over-c-style-format-strings-and-str-format">
 <h3>Item 4: Prefer Interpolated F-strings Over C-style Format Strings and str.format<a class="headerlink" href="#item-4-prefer-interpolated-f-strings-over-c-style-format-strings-and-str-format" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 28</span>
 <span class="n">places</span> <span class="o">=</span> <span class="mi">3</span>
@@ -216,8 +220,8 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">1.235</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-7-prefer-enumerate-over-range">
+</section>
+<section id="item-7-prefer-enumerate-over-range">
 <h3>Item 7: Prefer enumerate Over range<a class="headerlink" href="#item-7-prefer-enumerate-over-range" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 5</span>
 <span class="n">flavor_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;vanilla&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;pecan&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">]</span>
@@ -231,8 +235,8 @@
 <span class="mi">4</span><span class="p">:</span> <span class="n">strawberry</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-8-use-zip-to-process-iterators-in-parallel">
+</section>
+<section id="item-8-use-zip-to-process-iterators-in-parallel">
 <h3>Item 8: Use zip to Process Iterators in Parallel<a class="headerlink" href="#item-8-use-zip-to-process-iterators-in-parallel" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cecilia&#39;</span><span class="p">,</span> <span class="s1">&#39;Lise&#39;</span><span class="p">,</span> <span class="s1">&#39;Marie&#39;</span><span class="p">]</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
@@ -258,11 +262,11 @@
 <span class="n">Rosalind</span><span class="p">:</span> <span class="kc">None</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="chapter-2-lists-and-dictionaries">
+</section>
+</section>
+<section id="chapter-2-lists-and-dictionaries">
 <h2>Chapter 2 Lists and Dictionaries<a class="headerlink" href="#chapter-2-lists-and-dictionaries" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="item-16-prefer-get-over-in-and-keyerror-to-handle-missing-dictionaries-keys">
+<section id="item-16-prefer-get-over-in-and-keyerror-to-handle-missing-dictionaries-keys">
 <h3>Item 16: Prefer get Over in and KeyError to Handle Missing Dictionaries Keys<a class="headerlink" href="#item-16-prefer-get-over-in-and-keyerror-to-handle-missing-dictionaries-keys" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
 <span class="n">counters</span> <span class="o">=</span> <span class="p">{</span>
@@ -310,11 +314,11 @@
 <span class="p">{</span><span class="s1">&#39;pumpernickel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sourdough&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;brioche&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;multigrain&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="chapter-3-functions">
+</section>
+</section>
+<section id="chapter-3-functions">
 <h2>Chapter 3 Functions<a class="headerlink" href="#chapter-3-functions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="item-19-never-unpack-more-than-three-variables">
+<section id="item-19-never-unpack-more-than-three-variables">
 <h3>Item 19: Never Unpack More Than Three Variables<a class="headerlink" href="#item-19-never-unpack-more-than-three-variables" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">63</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">70</span><span class="p">]</span>
 
@@ -336,8 +340,8 @@
 <span class="n">Shortest</span><span class="p">:</span>  <span class="mi">89</span><span class="o">%</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-20-prefer-raising-exceptions-to-returning-none">
+</section>
+<section id="item-20-prefer-raising-exceptions-to-returning-none">
 <h3>Item 20: Prefer Raising Exceptions to Returning None<a class="headerlink" href="#item-20-prefer-raising-exceptions-to-returning-none" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 7</span>
 <span class="k">def</span> <span class="nf">careful_divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -347,8 +351,8 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid inputs&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-22-reduce-visual-noise-with-variable-positional-arguments">
+</section>
+<section id="item-22-reduce-visual-noise-with-variable-positional-arguments">
 <h3>Item 22: Reduce Visual Noise with Variable Positional Arguments<a class="headerlink" href="#item-22-reduce-visual-noise-with-variable-positional-arguments" title="Permalink to this headline">¶</a></h3>
 <p>Positional arguments synthax is using one star “*”. List can be passed
 as positional arguments.</p>
@@ -374,8 +378,8 @@ as positional arguments.</p>
 <span class="n">Favorite</span> <span class="n">colors</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-23-provide-optional-behavior-with-keywords-arguments">
+</section>
+<section id="item-23-provide-optional-behavior-with-keywords-arguments">
 <h3>Item 23: Provide Optional Behavior with Keywords Arguments<a class="headerlink" href="#item-23-provide-optional-behavior-with-keywords-arguments" title="Permalink to this headline">¶</a></h3>
 <p>Keyword arguments synthax is using two stars “**”. Dict can be passed
 as keywords arguments.</p>
@@ -392,8 +396,8 @@ as keywords arguments.</p>
 <span class="n">gamma</span> <span class="o">=</span> <span class="mi">4</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-25-enforce-clarity-with-keyword-only-and-positional-only-arguments">
+</section>
+<section id="item-25-enforce-clarity-with-keyword-only-and-positional-only-arguments">
 <h3>Item 25: Enforce Clarity with Keyword-Only and Positional-Only Arguments<a class="headerlink" href="#item-25-enforce-clarity-with-keyword-only-and-positional-only-arguments" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 16</span>
 <span class="k">def</span> <span class="nf">safe_division_e</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">denominator</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span>
@@ -430,8 +434,8 @@ as keywords arguments.</p>
 <span class="mf">3.14</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-26-define-function-decorator-with-functools-wraps">
+</section>
+<section id="item-26-define-function-decorator-with-functools-wraps">
 <h3>Item 26: Define Function Decorator with functools.wraps<a class="headerlink" href="#item-26-define-function-decorator-with-functools-wraps" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 8</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
@@ -465,11 +469,11 @@ as keywords arguments.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="chapter-4-comprehensions-and-generators">
+</section>
+</section>
+<section id="chapter-4-comprehensions-and-generators">
 <h2>Chapter 4 Comprehensions and Generators<a class="headerlink" href="#chapter-4-comprehensions-and-generators" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="item-28-avoid-more-than-two-control-subexpressions-in-comprehensions">
+<section id="item-28-avoid-more-than-two-control-subexpressions-in-comprehensions">
 <h3>Item 28: Avoid More Than Two Control Subexpressions in Comprehensions<a class="headerlink" href="#item-28-avoid-more-than-two-control-subexpressions-in-comprehensions" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 6</span>
 <span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
@@ -481,8 +485,8 @@ as keywords arguments.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">]]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-32-consider-generators-for-large-list-comprehensions">
+</section>
+<section id="item-32-consider-generators-for-large-list-comprehensions">
 <h3>Item 32: Consider Generators For Large List Comprehensions<a class="headerlink" href="#item-32-consider-generators-for-large-list-comprehensions" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">it</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
 
@@ -504,8 +508,8 @@ as keywords arguments.</p>
 <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.4142135623730951</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-36-consider-itertools-for-working-with-iterators-and-generators">
+</section>
+<section id="item-36-consider-itertools-for-working-with-iterators-and-generators">
 <h3>Item 36: Consider itertools for Working with Iterators and Generators<a class="headerlink" href="#item-36-consider-itertools-for-working-with-iterators-and-generators" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
@@ -532,11 +536,11 @@ as keywords arguments.</p>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="chapter-5-classes-and-interfaces">
+</section>
+</section>
+<section id="chapter-5-classes-and-interfaces">
 <h2>Chapter 5 Classes and Interfaces<a class="headerlink" href="#chapter-5-classes-and-interfaces" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="item-40-initialize-parent-class-with-super">
+<section id="item-40-initialize-parent-class-with-super">
 <h3>Item 40: Initialize Parent Class with super<a class="headerlink" href="#item-40-initialize-parent-class-with-super" title="Permalink to this headline">¶</a></h3>
 <p>The Method Resolution Order (MRO) defines the ordering in which
 superclasses are initialized, following an algorithm called C3
@@ -579,8 +583,8 @@ linearization.</p>
 &lt;class &#39;object&#39;&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="item-43-inherit-from-collections-abc-for-custom-container-types">
+</section>
+<section id="item-43-inherit-from-collections-abc-for-custom-container-types">
 <h3>Item 43: Inherit from collections.abc for Custom Container Types<a class="headerlink" href="#item-43-inherit-from-collections-abc-for-custom-container-types" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
 <span class="k">class</span> <span class="nc">FrequencyList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
@@ -607,11 +611,11 @@ linearization.</p>
 <span class="n">Frequency</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="chapter-6-metaclasses-and-attributes">
+</section>
+</section>
+<section id="chapter-6-metaclasses-and-attributes">
 <h2>Chapter 6 Metaclasses and Attributes<a class="headerlink" href="#chapter-6-metaclasses-and-attributes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="item-44-use-plain-attributes-instead-of-setter-and-getter-methods">
+<section id="item-44-use-plain-attributes-instead-of-setter-and-getter-methods">
 <h3>Item 44: Use Plain Attributes Instead of Setter and Getter Methods<a class="headerlink" href="#item-44-use-plain-attributes-instead-of-setter-and-getter-methods" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 4</span>
 <span class="k">class</span> <span class="nc">Resistor</span><span class="p">:</span>
@@ -658,9 +662,9 @@ linearization.</p>
 <span class="n">After</span><span class="p">:</span>  <span class="mf">0.01</span> <span class="n">amps</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

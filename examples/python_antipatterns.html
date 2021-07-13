@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Python patterns to avoid &mdash; golden-python 0.0 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -193,11 +197,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="python-patterns-to-avoid">
+  <section id="python-patterns-to-avoid">
 <h1><a class="reference external" href="https://docs.quantifiedcode.com/python-anti-patterns">Python patterns to avoid</a><a class="headerlink" href="#python-patterns-to-avoid" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="correctness">
+<section id="correctness">
 <h2>Correctness<a class="headerlink" href="#correctness" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="avoid-assigning-a-lambda-expression-to-a-variable">
+<section id="avoid-assigning-a-lambda-expression-to-a-variable">
 <h3>Avoid assigning a lambda expression to a variable<a class="headerlink" href="#avoid-assigning-a-lambda-expression-to-a-variable" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
@@ -207,8 +211,8 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="avoid-using-future-import-in-the-middle-of-the-code">
+</section>
+<section id="avoid-using-future-import-in-the-middle-of-the-code">
 <h3>Avoid using __future__ import (in the middle of the code)<a class="headerlink" href="#avoid-using-future-import-in-the-middle-of-the-code" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>  <span class="c1"># 1</span>
@@ -242,8 +246,8 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.1428571428571428</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dont-implement-java-style-getters-and-setters">
+</section>
+<section id="dont-implement-java-style-getters-and-setters">
 <h3>Don’t implement Java-style getters and setters<a class="headerlink" href="#dont-implement-java-style-getters-and-setters" title="Permalink to this headline">¶</a></h3>
 <p>In most programming languages, methods are used to access attributes.</p>
 <p><strong>Avoid</strong></p>
@@ -294,8 +298,8 @@
 <span class="n">r</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># automatically calls setter</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-generic-function-in-the-class-instead-of-a-method">
+</section>
+<section id="create-generic-function-in-the-class-instead-of-a-method">
 <h3>Create generic function in the class instead of a method<a class="headerlink" href="#create-generic-function-in-the-class-instead-of-a-method" title="Permalink to this headline">¶</a></h3>
 <p>The method of the class can be more generic (associate to the object and
 to the class scope). If possible, make those functionalities more
@@ -324,8 +328,8 @@ generic.</p>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;class name: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="never-use-a-mutable-default-argument">
+</section>
+<section id="never-use-a-mutable-default-argument">
 <h3>Never use a mutable default argument !!<a class="headerlink" href="#never-use-a-mutable-default-argument" title="Permalink to this headline">¶</a></h3>
 <p>The arguments of a function share the same default object.</p>
 <p>For this reason, default mutable arguments should be avoided.</p>
@@ -369,8 +373,8 @@ generic.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="use-get-to-return-a-value-from-a-dict">
+</section>
+<section id="use-get-to-return-a-value-from-a-dict">
 <h3>Use get() to return a value from a dict<a class="headerlink" href="#use-get-to-return-a-value-from-a-dict" title="Permalink to this headline">¶</a></h3>
 <p>Repetition is the key.</p>
 <p><strong>Avoid</strong></p>
@@ -398,8 +402,8 @@ generic.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, World!
 </pre></div>
 </div>
-</div>
-<div class="section" id="use-setdefault-to-initialize-a-dictionary-for-the-same-reason">
+</section>
+<section id="use-setdefault-to-initialize-a-dictionary-for-the-same-reason">
 <h3>Use setdefault() to initialize a dictionary (for the same reason)<a class="headerlink" href="#use-setdefault-to-initialize-a-dictionary-for-the-same-reason" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary</span> <span class="o">=</span> <span class="p">{}</span>
@@ -416,16 +420,16 @@ generic.</p>
 <span class="n">dictionary</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;list_item&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="be-aware-of-defaultdict-and-missing-method">
+</section>
+<section id="be-aware-of-defaultdict-and-missing-method">
 <h3>Be aware of defaultdict and __missing__ method<a class="headerlink" href="#be-aware-of-defaultdict-and-missing-method" title="Permalink to this headline">¶</a></h3>
 <p>In some circonstances, using defaultdict or implementing a missing
 method for a dict could be a better practice.</p>
-</div>
-</div>
-<div class="section" id="maintainability">
+</section>
+</section>
+<section id="maintainability">
 <h2>Maintainability<a class="headerlink" href="#maintainability" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="use-with-to-open-files">
+<section id="use-with-to-open-files">
 <h3>Use with to open files<a class="headerlink" href="#use-with-to-open-files" title="Permalink to this headline">¶</a></h3>
 <p>Consider contextlib and with statement for a clean try/finally block
 execution.</p>
@@ -444,8 +448,8 @@ execution.</p>
     <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-single-letter-to-name-your-variables">
+</section>
+<section id="using-single-letter-to-name-your-variables">
 <h3>Using single letter to name your variables<a class="headerlink" href="#using-single-letter-to-name-your-variables" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">}],</span> <span class="s1">&#39;texts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]}</span>
@@ -482,11 +486,11 @@ execution.</p>
 <span class="n">c</span> <span class="n">d</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="readability">
+</section>
+</section>
+<section id="readability">
 <h2>Readability<a class="headerlink" href="#readability" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="eafp-easier-to-ask-for-forgiveness-than-permission">
+<section id="eafp-easier-to-ask-for-forgiveness-than-permission">
 <h3>EAFP (easier to ask for forgiveness than permission)<a class="headerlink" href="#eafp-easier-to-ask-for-forgiveness-than-permission" title="Permalink to this headline">¶</a></h3>
 <p>Any expected problems should be caught as exceptions.</p>
 <p><strong>Avoid</strong></p>
@@ -507,8 +511,8 @@ execution.</p>
     <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dont-confuse-comparison-of-reference-and-of-values">
+</section>
+<section id="dont-confuse-comparison-of-reference-and-of-values">
 <h3>Don’t confuse comparison of reference and of values<a class="headerlink" href="#dont-confuse-comparison-of-reference-and-of-values" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -536,8 +540,8 @@ execution.</p>
 <span class="n">ok</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="comparing-things-to-none-the-wrong-way">
+</section>
+<section id="comparing-things-to-none-the-wrong-way">
 <h3>Comparing things to None the wrong way<a class="headerlink" href="#comparing-things-to-none-the-wrong-way" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="kc">None</span>
@@ -559,8 +563,8 @@ execution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PEP</span> <span class="mi">8</span> <span class="n">Style</span> <span class="n">Guide</span> <span class="n">prefers</span> <span class="n">this</span> <span class="n">pattern</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="comparing-things-to-true-the-wrong-way">
+</section>
+<section id="comparing-things-to-true-the-wrong-way">
 <h3>Comparing things to True the wrong way<a class="headerlink" href="#comparing-things-to-true-the-wrong-way" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
@@ -583,8 +587,8 @@ execution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PEP</span> <span class="mi">8</span> <span class="n">Style</span> <span class="n">Guide</span> <span class="n">prefers</span> <span class="n">this</span> <span class="n">pattern</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-type-to-compare-types">
+</section>
+<section id="using-type-to-compare-types">
 <h3>Using type() to compare types<a class="headerlink" href="#using-type-to-compare-types" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">types</span>
@@ -616,8 +620,8 @@ execution.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;object r is a cell&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="use-the-dict-keys-when-formatting-strings">
+</section>
+<section id="use-the-dict-keys-when-formatting-strings">
 <h3>Use the dict keys when formatting strings<a class="headerlink" href="#use-the-dict-keys-when-formatting-strings" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">person</span> <span class="o">=</span> <span class="p">{</span>
@@ -646,8 +650,8 @@ execution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tobin</span> <span class="ow">is</span> <span class="mi">20</span> <span class="n">years</span> <span class="n">old</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="use-named-tuples-when-returning-more-than-one-value">
+</section>
+<section id="use-named-tuples-when-returning-more-than-one-value">
 <h3>Use named tuples when returning more than one value<a class="headerlink" href="#use-named-tuples-when-returning-more-than-one-value" title="Permalink to this headline">¶</a></h3>
 <p><strong>Avoid</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_name</span><span class="p">():</span>
@@ -678,9 +682,9 @@ execution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Richard</span> <span class="n">Xavier</span> <span class="n">Jones</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

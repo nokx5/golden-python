@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Documentation (using Sphinx) &mdash; golden-python 0.0 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -178,9 +182,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="documentation-using-sphinx">
+  <section id="documentation-using-sphinx">
 <h1>Documentation (using Sphinx)<a class="headerlink" href="#documentation-using-sphinx" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="write-docstrings-for-every-function-class-and-module">
+<section id="write-docstrings-for-every-function-class-and-module">
 <h2>Write Docstrings for Every Function, Class, and Module<a class="headerlink" href="#write-docstrings-for-every-function-class-and-module" title="Permalink to this headline">¶</a></h2>
 <!-- This is the Item 84 of Effective Python 2nd edition from the section Collaboration. --><p>Once trimmed, there will be no distinction between starting on first or
 second line.</p>
@@ -188,7 +192,7 @@ second line.</p>
 <li><p>prefer start on first line of the docstring</p></li>
 <li><p>don’t tab empty line of the docstring</p></li>
 </ol>
-<div class="section" id="function">
+<section id="function">
 <h3>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h3>
 <p><strong>Best practice</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">palindrome</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
@@ -208,8 +212,8 @@ second line.</p>
 </pre></div>
 </div>
 <pre class="literal-block">&quot;Return True if the given word is a palindromenn    'Stats' is an example of a palindromen    &quot;</pre>
-</div>
-<div class="section" id="class">
+</section>
+<section id="class">
 <h3>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h3>
 <p><strong>Best practice</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Player</span><span class="p">:</span>
@@ -237,8 +241,8 @@ second line.</p>
     <span class="o">-</span> <span class="n">power</span><span class="p">:</span> <span class="n">Unused</span> <span class="n">power</span><span class="o">-</span><span class="n">ups</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="module">
+</section>
+<section id="module">
 <h3>Module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h3>
 <p><strong>Best practice</strong></p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># words.py</span>
@@ -254,11 +258,11 @@ second line.</p>
 </pre></div>
 </div>
 <pre class="literal-block">'Library for finding linguist patternsnnTesting how words ...nnAvailable functions:n- palindrome: determine if word is a palindromen...n'</pre>
-</div>
-</div>
-<div class="section" id="write-docstrings-for-variable">
+</section>
+</section>
+<section id="write-docstrings-for-variable">
 <h2>Write Docstrings for Variable<a class="headerlink" href="#write-docstrings-for-variable" title="Permalink to this headline">¶</a></h2>
-<!-- We did this in the runhelper --><div class="section" id="variable">
+<!-- We did this in the runhelper --><section id="variable">
 <h3>Variable<a class="headerlink" href="#variable" title="Permalink to this headline">¶</a></h3>
 <p>You can add variable documentation for your IDE (it works for VSCode and
 pycharm).</p>
@@ -270,9 +274,9 @@ pycharm).</p>
 </pre></div>
 </div>
 <p>This is not a python docstring. Sphinx will not be able to use it.</p>
-</div>
-</div>
-<div class="section" id="writing-sphinx-docstrings">
+</section>
+</section>
+<section id="writing-sphinx-docstrings">
 <h2>Writing sphinx docstrings<a class="headerlink" href="#writing-sphinx-docstrings" title="Permalink to this headline">¶</a></h2>
 <p>We automatically generate documentation from the
 <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> using sphinx
@@ -323,8 +327,8 @@ refer to the section on typing for the good typing practices.</p>
     <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Type hints - static typing &mdash; golden-python 0.0 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -171,7 +175,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="type-hints-static-typing">
+  <section id="type-hints-static-typing">
 <h1>Type hints - static typing<a class="headerlink" href="#type-hints-static-typing" title="Permalink to this headline">¶</a></h1>
 <p>The main goal of this <a class="reference external" href="https://www.pythonsheets.com/notes/python-typing.html">cheat
 sheet</a> is to
@@ -196,7 +200,7 @@ show some common usage about type hints in Python3.</p>
 <span class="c1"># fib.py:12: error: Argument 1 to &quot;fib&quot; has incompatible type &quot;float&quot;; expected &quot;int&quot;</span>
 </pre></div>
 </div>
-<div class="section" id="basic-types">
+<section id="basic-types">
 <h2>Basic Types<a class="headerlink" href="#basic-types" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -261,8 +265,8 @@ show some common usage about type hints in Python3.</p>
 <span class="n">var_mutable_dict</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;Bar&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="multiple-return-values">
+</section>
+<section id="multiple-return-values">
 <h2>Multiple return values<a class="headerlink" href="#multiple-return-values" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -281,8 +285,8 @@ show some common usage about type hints in Python3.</p>
 <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span>  <span class="c1"># ok</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="union-any-none-optional-any">
+</section>
+<section id="union-any-none-optional-any">
 <h2>Union[Any, None] == Optional[Any]<a class="headerlink" href="#union-any-none-optional-any" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -301,8 +305,8 @@ show some common usage about type hints in Python3.</p>
 <span class="n">first</span><span class="p">([</span><span class="kc">None</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="forward-references">
+</section>
+<section id="forward-references">
 <h2>Forward references<a class="headerlink" href="#forward-references" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
@@ -318,8 +322,8 @@ show some common usage about type hints in Python3.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
