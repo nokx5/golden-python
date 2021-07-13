@@ -3,62 +3,90 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, utils }:
-    utils.lib.eachSystem [ "x86_64-linux" ] (system:
-      let
-        overlay = pkgs-self: pkgs-super:
-          let
-            inherit (pkgs-super.lib) composeExtensions;
-            pythonPackageOverrides = python-self: python-super: {
-              golden-python-app =
-                python-self.callPackage ./derivation-app.nix { src = self; };
-              golden-python =
-                python-self.callPackage ./derivation.nix { src = self; };
-              fullDev = python-self.callPackage ./shell.nix { };
-            };
-          in {
-            python37 = pkgs-super.python37.override (old: {
-              packageOverrides =
-                composeExtensions (old.packageOverrides or (_: _: { }))
-                pythonPackageOverrides;
-            });
-            python38 = pkgs-super.python38.override (old: {
-              packageOverrides =
-                composeExtensions (old.packageOverrides or (_: _: { }))
-                pythonPackageOverrides;
-            });
-            python39 = pkgs-super.python39.override (old: {
-              packageOverrides =
-                composeExtensions (old.packageOverrides or (_: _: { }))
-                pythonPackageOverrides;
-            });
-            python3 = pkgs-self.python38;
-          };
+  outputs = { self, nixpkgs }:
 
-        pkgs = import nixpkgs {
+    let
+      forCustomSystems = custom: f: nixpkgs.lib.genAttrs custom (system: f system);
+      allSystems = [ "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin" ];
+      devSystems = [ "x86_64-linux" "x86_64-darwin" ];
+      forAllSystems = forCustomSystems allSystems;
+      forDevSystems = forCustomSystems devSystems;
+
+      nixpkgsFor = forAllSystems (system:
+        import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ overlay ];
-        };
-      in {
-        packages = {
-          inherit (pkgs.python3Packages)
-            fullDev golden-python golden-python-app;
-        };
-        defaultPackage = self.packages.${system}.golden-python-app;
+          overlays = [ self.overlay ];
+        }
+      );
 
-        apps = {
-          cli-golden-python = {
-            type = "app";
-            program = "${self.defaultPackage.${system}}/bin/golden-python";
+      repoName = "golden-python";
+      repoVersion = nixpkgsFor.x86_64-linux.golden-python.version;
+      repoDescription = "golden-python - A simple Python flake";
+    in
+    {
+      overlay = final: prev:
+        let
+          inherit (prev.lib) composeExtensions;
+          pythonPackageOverrides = python-self: python-super: {
+            golden-python-app =
+              python-self.callPackage ./derivation-app.nix { src = self; };
+            golden-python =
+              python-self.callPackage ./derivation.nix { src = self; };
           };
+        in
+        {
+          python37 = prev.python37.override (old: {
+            packageOverrides =
+              composeExtensions (old.packageOverrides or (_: _: { }))
+                pythonPackageOverrides;
+          });
+          python38 = prev.python38.override (old: {
+            packageOverrides =
+              composeExtensions (old.packageOverrides or (_: _: { }))
+                pythonPackageOverrides;
+          });
+          python39 = prev.python39.override (old: {
+            packageOverrides =
+              composeExtensions (old.packageOverrides or (_: _: { }))
+                pythonPackageOverrides;
+          });
+          python3 = final.python38;
+          golden-python-app = final.python3Packages.golden-python-app;
         };
 
-        defaultApp = self.apps.${system}.cli-golden-python;
+      devShell = forDevSystems (system:
+        let pkgs = nixpkgsFor.${system}; in pkgs.callPackage ./shell.nix { }
+      );
 
-        devShell = self.packages.${system}.golden-python-app;
-      });
+      hydraJobs = { };
+      packages = forAllSystems (system:
+        with nixpkgsFor.${system}; {
+          inherit (python3Packages) golden-python golden-python-app;
+        });
+
+      defaultPackage = forAllSystems (system:
+        self.packages.${system}.golden-python-app);
+
+      apps = forAllSystems (system: {
+        golden-python = {
+          type = "app";
+          program = "${self.packages.${system}.golden-python-app}/bin/cli_golden";
+        };
+      }
+      );
+
+      defaultApp = forAllSystems (system: self.apps.${system}.golden-python);
+
+      templates = {
+        golden-python = {
+          description = "template - ${repoDescription}";
+          path = ./.;
+        };
+      };
+
+      defaultTemplate = self.templates.golden-python;
+    };
 }
