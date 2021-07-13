@@ -1,14 +1,11 @@
-{ buildPythonPackage, src, decorator, jinja2, pyjson5, pytestCheckHook, toml }:
+{ buildPythonPackage, src, click, decorator, jinja2, pyjson5, pytestCheckHook, toml }:
 
 buildPythonPackage rec {
   pname = "golden-python";
   version = "0.0";
   inherit src;
 
-  buildInputs = [ ];
-  nativeBuildInputs = [ ];
-  propagatedBuildInputs = [ decorator jinja2 pyjson5 toml ];
-  propagatedNativeBuildInputs = [ ];
+  propagatedBuildInputs = [ click decorator jinja2 pyjson5 toml ];
 
   checkInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "tests" "-vv" ];
