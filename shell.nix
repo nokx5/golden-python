@@ -10,6 +10,7 @@ let
           eamodio.gitlens
           ms-python.python
           ms-python.vscode-pylance
+          ms-toolsai.jupyter
         ] ++ vscode-utils.extensionsFromVscodeMarketplace [
           {
             name = "emacs-mcx";
@@ -26,7 +27,7 @@ let
         ];
     });
   pythonEnv = (with pythonPackages;
-    [ pyjson5 toml ] ++ [
+    [
       #------------#
       # additional #
       #------------#
@@ -39,6 +40,7 @@ let
       ipython
       pip
       pytest
+      python-language-server
       mypy
       pylint
       flake8
@@ -57,8 +59,8 @@ in
 (with pkgs;
 mkShell {
   buildInputs = [ pythonEnv ];
-  nativeBuildInputs = [ cacert emacs-nox git gnumake nixpkgs-fmt pandoc ] ++ lib.optionals (hostPlatform.isLinux) [ vscodeExt ]
-    ++ [ black pythonEnv sphinx yapf ]; # jupyter
+  nativeBuildInputs = [ cacert emacs-nox git gnumake less more nixpkgs-fmt pandoc ] ++ lib.optionals (hostPlatform.isLinux) [ vscodeExt ]
+    ++ [ black pythonEnv sphinx yapf ];
   shellHook = ''
     export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
     export PYTHONPATH=$PWD:$PYTHONPATH
