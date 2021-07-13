@@ -2,13 +2,13 @@
 
 import click
 
-from golden.project import Hello
-
 
 @click.command()
 @click.option("--name", default="nokx", help="The person to greet.")
 def cli_entrypoint(name):
     """Example script."""
+    from golden import Hello
+
     click.echo(f"Welcome to {name} golden-python project!!")
 
 

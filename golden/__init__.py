@@ -1,7 +1,5 @@
-#!/usr/bin/env python
-#
 # A library that provides a golden project
-# Copyright (C) 2020-
+# Copyright (C) 202X
 """A library that provides a golden project"""
 
 from .project import Hello
