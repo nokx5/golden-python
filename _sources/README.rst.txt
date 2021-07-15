@@ -21,19 +21,14 @@ Please find all the documentation `here <https://nokx5.github.io/golden-python>`
 My development tools are
 ========================
 
-- nix ❄️ (packaging from hell ❤️)
-
-- black (formatter)
-
-- vscode (IDE) with
-  
-  - ms-python.vscode-pylance
-  - ms-python.python
-  - lextudio.restructuredtext
-
-- pytest (tests)
-
-- Sphinx (docs)
+* nix ❄️ (packaging from hell ❤️)
+* black (formatter)
+* vscode (IDE) with
+   *  ms-python.vscode-pylance
+   *  ms-python.python
+   *  lextudio.restructuredtext
+* pytest (tests)
+* Sphinx (docs)
 
 Use the classic Nix commands
 ============================
