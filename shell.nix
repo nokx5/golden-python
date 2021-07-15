@@ -62,7 +62,7 @@ mkShell {
   nativeBuildInputs = [ cacert emacs-nox git gnumake less more nixpkgs-fmt pandoc ] ++ lib.optionals (hostPlatform.isLinux) [ vscodeExt ]
     ++ [ black pythonEnv sphinx yapf ];
   shellHook = ''
-    export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+    export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
     export PYTHONPATH=$PWD:$PYTHONPATH
   '';
 })
