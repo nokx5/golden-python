@@ -13,7 +13,7 @@ Welcome to the `golden python`_ template
 .. |DocBadge| image:: https://github.com/nokx5/golden-python/workflows/doc-api/badge.svg
 .. _DocBadge: https://nokx5.github.io/golden-python
 .. |LicenseBadge| image:: http://img.shields.io/badge/license-MIT-blue.svg
-.. _LicenseBadge: https://github.com/nokx5/golden-cpp/blob/master/LICENSE
+.. _LicenseBadge: https://github.com/nokx5/golden-python/blob/master/LICENSE
 
 This is a skeleton for a python project template (called a golden project). 
 Please find all the documentation `here <https://nokx5.github.io/golden-python>`_ and the source code `there <https://github.com/nokx5/golden-python>`_.
