@@ -156,7 +156,9 @@ Code Snippets
 
     nixpkgs-fmt .
 
-    pip list --format=freeze > requirements.txt
+    pip install $(cat requirements.txt)
+
+    pip list --format=freeze | sed 's/==/>=/g' > requirements.txt
 
     python -m pytest -k "not bronze"
 
