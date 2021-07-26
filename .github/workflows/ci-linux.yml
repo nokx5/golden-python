@@ -19,3 +19,5 @@ jobs:
         run: nix-build . -A hydraJobs.release.x86_64-linux.inputDerivation --show-trace
       - name: Build Linux Release (run tests)
         run: nix-build . -A hydraJobs.release.x86_64-linux --show-trace
+      - name: Build Linux Environment (save env)
+        run: nix-shell default.nix -A hydraJobs.release.x86_64-linux --run "echo OK"
