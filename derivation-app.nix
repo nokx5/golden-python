@@ -5,7 +5,7 @@ buildPythonApplication rec {
   version = "0.0";
   inherit src;
 
-  nativeBuildInputs = [ sphinx sphinx_rtd_theme ]; # [ pandoc nbconvert ]
+  # nativeBuildInputs = [ sphinx sphinx_rtd_theme ]; # [ pandoc nbconvert ]
   propagatedBuildInputs = [ click decorator jinja2 ];
 
   checkInputs = [ pytestCheckHook pyjson5 toml ];
