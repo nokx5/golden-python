@@ -280,7 +280,9 @@ nix-shell . -A devShell.x86_64-linux
 
 nixpkgs-fmt .
 
-pip list --format<span class="o">=</span>freeze &gt; requirements.txt
+pip install <span class="k">$(</span>cat requirements.txt<span class="k">)</span>
+
+pip list --format<span class="o">=</span>freeze <span class="p">|</span> sed <span class="s1">&#39;s/==/&gt;=/g&#39;</span> &gt; requirements.txt
 
 python -m pytest -k <span class="s2">&quot;not bronze&quot;</span>
 </pre></div>
