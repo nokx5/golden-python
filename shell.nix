@@ -1,7 +1,6 @@
 { pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
 
 let
-  pythonPackages = pkgs.python3Packages;
   vscodeExt = (with pkgs;
     vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions;
@@ -26,7 +25,7 @@ let
           }
         ];
     });
-  pythonEnv = (with pythonPackages;
+  pythonEnv = pkgs.python3.withPackages (ps: with ps;
     [
       #------------#
       # additional #
@@ -40,7 +39,6 @@ let
       ipython
       pip
       pytest
-      python-language-server
       mypy
       pylint
       flake8
@@ -54,7 +52,7 @@ let
       sphinx_rtd_theme
       nbformat
       nbconvert
-    ]);
+    ] ++ pkgs.lib.optionals (!isPy39) [ python-language-server ]);
 in
 (with pkgs;
 mkShell {

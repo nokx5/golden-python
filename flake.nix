@@ -53,7 +53,7 @@
               composeExtensions (old.packageOverrides or (_: _: { }))
                 pythonPackageOverrides;
           });
-          python3 = final.python38;
+          python3 = final.python39;
           golden-python-app = final.python3Packages.golden-python-app;
         };
 
