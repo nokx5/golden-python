@@ -6,7 +6,7 @@ let
     vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions;
         [
-          bbenoist.Nix
+          bbenoist.nix
           eamodio.gitlens
           ms-python.python
           ms-python.vscode-pylance
