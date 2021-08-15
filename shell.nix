@@ -37,7 +37,7 @@ let
       # pydevtools #
       #------------#
       ipython
-      pip
+      # pip
       pytest
       mypy
       pylint
@@ -57,7 +57,7 @@ in
 (with pkgs;
 mkShell {
   buildInputs = [ pythonEnv ];
-  nativeBuildInputs = [ cacert emacs-nox git gnumake less more nixpkgs-fmt pandoc ] ++ lib.optionals (hostPlatform.isLinux) [ vscodeExt ]
+  nativeBuildInputs = [ bashCompletion bashInteractive cacert emacs-nox git gnumake less more nixpkgs-fmt pandoc ] ++ lib.optionals (hostPlatform.isLinux) [ vscodeExt ]
     ++ [ black pythonEnv sphinx yapf ];
   shellHook = ''
     export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt

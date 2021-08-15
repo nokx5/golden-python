@@ -1,9 +1,9 @@
 {
   description = "A simple Python flake";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  };
+  nixConfig.bash-prompt = "\\033[0;33m\\033[1m\[dev-golden-python\] \\w\\033[0m\\033[0m$ ";
+
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs = { self, nixpkgs }:
 
