@@ -139,6 +139,21 @@ Or you can install from source with:
 
     python setup.py install
 
+
+===================
+Link to derivations
+===================
+
+.. code:: shell
+
+    nix-build . -A packages.x86_64-linux.golden-python --out-link result-golden-python
+    nix-build . -A packages.x86_64-linux.golden-python.inputDerivation --out-link result-golden-python-dev
+    nix-build . -A devShell.x86_64-linux.inputDerivation --out-link result-golden-python-dev-full
+    
+    nix-build . -A packages.x86_64-linux.golden-python-app --out-link result-golden-python-app
+    nix-build . -A packages.x86_64-linux.golden-python-app.inputDerivation --out-link result-golden-python-app-dev
+
+
 =============
 Code Snippets
 =============
