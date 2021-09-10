@@ -42,11 +42,15 @@ let
     ipython
     mypy
     pylint
+    pip
+    # pygls
+    # pyls-black
+    # pyls-mypy
     pytest
     yapf
     #---------------#
     # documentation #
-    #---------------#      
+    #---------------#
     jupyter-sphinx
     sphinx
     sphinx_rtd_theme
@@ -55,11 +59,16 @@ let
   ] ++ lib.optionals (!isPy39) [ python-language-server ]);
 in
 mkShell {
-  buildInputs = [ pythonEnv ];
+  propagatedBuildInputs = [ pythonEnv ];
   nativeBuildInputs = [ bashCompletion bashInteractive cacert emacs-nox git gnumake less more nixpkgs-fmt pandoc ] ++ lib.optionals (hostPlatform.isLinux) [ vscodeExt ]
-    ++ [ black pythonEnv sphinx yapf ];
+    ++ [ black sphinx yapf ];
+  buildInputs = [ ] ++ lib.optionals (hostPlatform.isLinux) [ glibcLocales ];
+
+  LANG = "en_US.UTF-8";
+
   shellHook = ''
-    export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
+    export HOME=$(pwd)
     export PYTHONPATH=$PWD:$PYTHONPATH
+    export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
   '';
 }
